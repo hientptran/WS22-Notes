@@ -14,9 +14,9 @@
 	- **Multithreaded web server:** 
 		- Multiple threads allow for multiple requests to be satisfied simultaneously, without having to service requests sequentially or to fork off separate processes for every incoming request.
 		- Dispatcher reads incoming requests from the netzrok. After examining the request, it chooses an idle worker thread and hands it the request. The dispatcher then wakes up the sleeping worker, moving it from blocked status
-		- ![[thread application example 2.png]]
+		- ![[../../../_assets/thread application example 2.png]]
 	- **Word processors** uses multiple threads: one thread to format the text, another thread to process inputs, etc. (a background thread may check spelling and grammar while a foreground thread processes user input ( keystrokes ), while yet a third thread loads images from the hard drive, and a fourth does periodic automatic backups of the file being edited.)
-		- ![[thread application example 1.png]]
+		- ![[../../../_assets/thread application example 1.png]]
 > [!NOTE]- Process vs Thread
 > The primary difference is that threads within the same process run in a shared memory space, while processes run in separate memory spaces.  
 > Threads are not independent of one another like processes are, and as a result threads share with other threads their code section, data section, and OS resources (like open files and signals). But, like process, a thread has its own program counter (PC), register set, and stack space.
@@ -27,7 +27,7 @@
 - Per thread items: Systemaspekte, die jeder Thread selbst kontrolliert
 
 ### Thread memory
-![[thread memory.png | 400]]
+![[../../../_assets/thread memory.png | 400]]
 - Jeder Thread besitzt einen eigenen Stack und Registers
 - Threads teilen sich einen gemeinsamen Speicher (code, data, files)
 
@@ -158,19 +158,19 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - Thread switching doe snot need to call OS and to cause interrupt to Kernel
 - Kernel doesn't know about the user-lever thread and manages them as if they were singe-threaded processes
 - Thread wird vom Nutzer verwaltet (Stack scheduling, usw.)
-![[user level thread.png | 300]]
+![[../../../_assets/user level thread.png | 300]]
 ### Kernel level threads
 - Kernel knows and manages the threads
 - Instead of thread table in each process, the kernel has a master thread table that keeps track of all the threads in the system
 - In addition, kernel also maintains the traditional process table to keep track of the processes. Kernel provides system calls to create and manage threads
 - Threads wird com Kernel verwaltet => einfacher, aber weiniger performant als ULT
-![[Kernel level threads.png | 300]]
+![[../../../_assets/Kernel level threads.png | 300]]
 ### Hybrid implementation
 - Vereinigung der Vorteile beider Methoden (ULT, KLT), unter Auslassung ihrer Nachteile
 - The kernel is aware of only the kernel-level threads and schedule those. Some of those threads may have multiple ULT on top of them
-![[Hybrid implementation ULT KLT.png | 300]]
+![[../../../_assets/Hybrid implementation ULT KLT.png | 300]]
 ### Pop-up threads
 - Thread wird bei Ankunft einer Mitteilung erzeugt (a: vor Ankuft; b: nach Ankunft)
 - Vorteil: kein blocked Thread, der auf Mitteilung wartet
 - Nachteil: nicht günstig, falls zu viele Mitteilungen in kurzer Zeit - hier wäre eine Thread-Pool mit blocked Threads ressourcensschonender
-![[Popup threads.png | 300]]
+![[../../../_assets/Popup threads.png | 300]]

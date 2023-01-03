@@ -9,7 +9,7 @@
 - Batch systems work in terms of "jobs." Many modern process concepts are still expressed in terms of jobs
 ### Process memory
 
-![[process memory.png | 150]]
+![[../../../_assets/process memory.png | 150]]
 
 - **Text:** compiled program code, read in from non-volatile storage (_a type of computer memory that can retain stored information even after power is removed_) when the program is launched
 - **Data**: global and static variables, initialized prior to executing main
@@ -21,12 +21,12 @@
 #### example (bsp_multithreading.c) 
 [[Process and threads#multithreading.c]]
 **2 processes:** after a process: stack freigegeben, heap nicht freigegeben, daten bleibt erhalten
-	1. ![[process memory example 1.png | 250]]
-	2. ![[process memory example 2.png | 250]]
-	3. ![[process memory example 3.png | 250]]
+	1. ![[../../../_assets/process memory example 1.png | 250]]
+	2. ![[../../../_assets/process memory example 2.png | 250]]
+	3. ![[../../../_assets/process memory example 3.png | 250]]
 **2 threads:** 2 threads run parallel and create 2 stacks, head and data are used by both threads (memory allocation different between different OS version)
-	1. ![[process memory example 4.png | 250]]
-	2. ![[process memory example 5.png | 250]]
+	1. ![[../../../_assets/process memory example 4.png | 250]]
+	2. ![[../../../_assets/process memory example 5.png | 250]]
 
 ### Process creation
 1. Systemstart
@@ -40,7 +40,7 @@
 4. Abbruch durch anderen Prozess (Unix: kill; Windows: TerminateProcess)
 
 ### Process states
-![[prozesszustände.png]]
+![[../../../_assets/prozesszustände.png]]
 
 1. **Ready**: Prozess befindet sich in Warteschleife (Anfangszustand). Scheduler wählt einen Prozess für die CPU aus
 2. **Running**: Prozess wird von CPU bearbeitet. <u>Nach Ablauf der "Zeitscheibe"</u> kommt ein Prozess zurück in die Warteschlange (2), sofern er nicht abgearbeitei ist (5) oder blockiert wird (3)
@@ -52,7 +52,7 @@
 > - **Running**: CPU working on this process's instructions
 > - Waiting: Process not running, waiting for some resource to become available or for some event to occur (keyboard input, disk access request, timer, child process, etc.)
 > - **Terminated**: Process completed
-> ![[full process states.png]]
+> ![[../../../_assets/full process states.png]]
 
 ### Process table
 - A process control block (PCB) contains information about the process, i.e. registers, quantum, priority, etc. 

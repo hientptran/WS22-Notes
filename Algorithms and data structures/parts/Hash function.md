@@ -23,9 +23,9 @@
 		- [7.4.  Handling Collisions with Linked Lists (uc3m.es)](https://www.it.uc3m.es/pbasanta/asng/course_notes/dynamic_data_structures_hash_table_collision_en.html)
 		- [Separate Chaining Collision Handling Technique in Hashing - GeeksforGeeks](https://www.geeksforgeeks.org/separate-chaining-collision-handling-technique-in-hashing/)
 		- **Direkte Verkettung:** 
-		- ![[Pasted image 20221215151142.png | 400]]
+		- ![[../../_assets/Pasted image 20221215151142.png | 400]]
 		- **Separate Verkettung:** 
-		- ![[Pasted image 20221215151421.png | 400]]
+		- ![[../../_assets/Pasted image 20221215151421.png | 400]]
 
 - **Data retrieval:** search, add, remove
 	- Why not use linear list (array)? High time complexity: search = O(n), add = O(n), remove = O(n)

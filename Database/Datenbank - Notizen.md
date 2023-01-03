@@ -1,4 +1,4 @@
-![[Pasted image 20221227115025.png | 500]]
+![[../_assets/Pasted image 20221227115025.png | 500]]
 
 ### ER-Modell
 - Name des Gebiets?

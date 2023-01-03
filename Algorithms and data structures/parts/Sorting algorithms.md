@@ -154,7 +154,7 @@ static void quicksort(int[] arr, int low, int high) {
 	- Best case: T(n) = O(nlogn) -> z.B: 4 1 3 9 6 7 5
 		- 4 1 3 9 6 7 5: n = 7 -> 2 Durchläufe
 		- In jedem Durchlauf: alle Elementen mit dem Pivotelement vergleichen -> (n-1) Schritte
-		- ![[quick sort - best case.png | 300]]
+		- ![[../../_assets/quick sort - best case.png | 300]]
 	- Worst case: O(n^2) -> sortierte List z.B: 1 2 3 4 5 6 (because algorithm has to recursively sort the list until only 1 element in group)
 		- (n-1) Durchläufe, in jedem Durchlauf (n-1)/2 (Menge wird nach jedem Durchläuf kleiner)
 	- Average case: n = 7 

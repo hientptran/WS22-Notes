@@ -15,7 +15,7 @@
 | In the case of data types, the value of data is not stored because it only represents the type of data that can be stored.                                            | While in the case of data structures, the data and its value acquire the space in the computer’s main memory. Also, a data structure can hold different kinds and types of data within one single object. |     
 | Data type examples are int, float, double, etc. |   Data structure examples are stack, queue, tree, etc.                                                                                                                                                                    |                                                                                                                                                                                                           |     |     |     |
 
-![[classification of data structure.png]]
+![[../../_assets/classification of data structure.png]]
 
 ## **List:**
 - ***Lineare Liste:***
