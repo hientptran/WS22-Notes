@@ -34,46 +34,38 @@ Um die Funktionalitäten der App zu veranschaulichen, wird die csv-Datei "budget
 
 ## **3. Benutzeranleitung**
 ### 1. Programm starten
-Beim Start der Anwendung werden Transaktionen aus der Datei ``budget.csv`` geladen. Änderungen an der Liste der Transaktionen könnten auch in dieser Datei gespeichert und beim nächsten Start abgerufen werden. Hier ist der vorgelandene Inhalt dieser Datei:
+Beim Start der Anwendung werden Transaktionen aus der Datei ``budget.csv`` (im Stammverzeichnis) geladen. Änderungen an der Liste der Transaktionen könnten auch in dieser Datei gespeichert und beim nächsten Start abgerufen werden. Hier ist der vorgelandene Inhalt dieser Datei:
 ![[Screenshot (60).png | 500]]
 Jede Zeile der csv-Datei ist wie folgt formatiert: Datum, Name, Kategorie, Betrag. Ausgaben werden als negative Werte und Einnahmen als positive Werte angegeben.
-Standardkategorien werden aus der Datei ``categories.csv``  importiert:
+
+Standardkategorien werden aus der Datei ``categories.csv``  (im Stammverzeichnis) importiert:
 ![[Screenshot (61).png | 500]]
+
 Die folgende Optionen werden gezeigt. Geben Sie die entsprechende Nummer ein, um den gewählten Befehl auszuführen. 
 ![500](../../_assets/Screenshot%20(87).png)
 Eine ungültige Option führt zu einem Fehlermeldung und das Programm wird Sie auffordern, einen gültigen Wert einzugeben.
 
 ### 2. Alle Transaktionen anzeigen
 Die erste Option \[0] im Hauptmenü wählen. Alle erfassten Transaktionen und die Summe der Transaktionen werden ausgedruckt.
-![[Screenshot (63).png | 500]]
+
 ### 3. Transaktionen hinzufügen, löschen, und bearbeiten
 - Die  Option \[1] der Hauptmenü wählen, um eine neue Transaktion hinzufügen. Sie werden dann aufgefordert, Datum, Name, Kategorie und Betrag der Transaktion einzugeben. Das Standarddatum ist das aktuelle Systemdatum. Sie können auch eine neue Kategorie hinzufügen.
-![[Screenshot (64).png | 500]]
 - Die Option \[2] der Hauptmenü wählen, um eine Transaktion zu löschen. Sie können die zu löschende Transaktion durch Eingabe ihrer ID-Nummer auswählen.
-![[Screenshot (65).png | 500]]
 - Die Option \[3] der Hauptmenü wählen, um alle Transaktion zu löschen.
-
 - Die Option \[4] der Hauptmenü wählen, um eine Transaktion zu bearbeiten. Sie können die zu bearbeitende Transaktion durch Eingabe ihrer ID-Nummer auswählen.  Sie werden dann aufgefordert, Datum, Name, Kategorie und Betrag der neuen Transaktion einzugeben.
-![[Screenshot (66).png | 500]]
+
 ### 4. Transaktionen sortieren
 Die Option \[5] der Hauptmenü wählen, um die Transaktionen zu sortieren. Die Transaktionen können nach Betrag \[0], Datum \[1], Namen \[2], Kategorie \[3] sortiert werden.
-![[Screenshot (67).png | 500]]
-![[Screenshot (68).png | 500]]
-![[Screenshot (69).png | 500]]
-![[Screenshot (70).png | 500]]
+
 ### 5. Transaktionen suchen
 Die Option \[6] der Hauptmenü wählen, um die Transaktionen zu sortieren. Die Transaktionen können nach Namen \[0] (case insensitive), Kategorie \[1], Datum \[2] durchgesucht werden. 
-![[Screenshot (71).png | 500]]
-![[Screenshot (72).png | 500]]
-![[Screenshot (73).png | 500]]
 
 ### 6. Transaktionen speichern und Programm beenden
-Alle Transaktionen können in der csv-Datei "budget.csv" gespeichert werden, damit sie beim nächsten Start wieder abgerufen werden können. Wenn Sie die Änderungen an der Transaktionsliste speichern möchten, können Sie die Option \[7] des Hauptmenüs wählen. 
-![[Screenshot (76).png | 500]]
-Der Inhalt der Datei "budget.csv" wird dann ebenfalls geändert:
-![[Screenshot (74).png | 500]]
+Alle Transaktionen können in der csv-Datei "budget.csv" gespeichert werden, damit sie beim nächsten Start wieder abgerufen werden können. 
+
+Wenn Sie die Änderungen an der Transaktionsliste speichern möchten, können Sie die Option \[7] des Hauptmenüs wählen. Der Inhalt der Datei "budget.csv" wird dann ebenfalls geändert.
+
 Die Option \[8] wählen, um das Programm zu beenden.
-![[Screenshot (77).png | 500]]
 
 
 ## 4. Datenstruktur und Datentypen
@@ -127,13 +119,13 @@ public void quicksort(Node start, Node end, Comparator<Item> comparator) {
         return;  
     Node pivot_prev = partitionLast(start, end, comparator);  // n Operationen
     
-    quicksort(start, pivot_prev, comparator);               // | linke Teilmenge sortieren --> n/2 Op
+    quicksort(start, pivot_prev, comparator);            // | linke Teilmenge sortieren --> n/2 Op
     
-    if (pivot_prev != null && pivot_prev == start)          // |
-        quicksort(pivot_prev.next, end, comparator);        // |
-    else if (pivot_prev != null                             // } rechte Teilmenge sortieren --> n/2 Op
-            && pivot_prev.next != null)                     // |  
-        quicksort(pivot_prev.next.next, end, comparator);   // |
+    if (pivot_prev != null && pivot_prev == start)       // |
+        quicksort(pivot_prev.next, end, comparator);     // |
+    else if (pivot_prev != null                          // } rechte Teilmenge sortieren --> n/2 Op
+            && pivot_prev.next != null)                  // |  
+        quicksort(pivot_prev.next.next, end, comparator);// |
 }
 ```
 
