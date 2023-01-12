@@ -34,6 +34,34 @@
 2. Ausführung eines Programms, das einen neuen Prozess erzeugt
 3. Nutzeraktion
 4. Start eines Batchjobs
+
+#### fork() [C Programming](C%20Programming.md)
+```C
+// fork() duplicates the parent process and creates child process. parent and child processes runs parallel
+// fork() returns process id (pid) of the child process to the parent and 0 to the chile. returns -1 if there's an error
+int main() {
+	int child = fork(); //returns 0 in child process
+	if (child == 0) {
+		fork();
+	}
+	printf("hello\n"); // prints hello 3 times
+}
+
+int my_pid = getpid();
+int parent_pid = getppid();
+
+sleep(2); //wait 2 seconds (only ganzzahlen)
+
+kill(pid, SIGTERM) //ends process with given pid
+```
+- pid_t **wait(int \*status_loc)**
+	- suspends execution of the claling process until one of its children terminates
+	- On success: returns the process ID of terminated child; on error -1
+- pid_t **waitpid(pid_t pid, int \*status_loc, int optionen)**
+	- Suspends execution of the calling process until a child specified by pid argument has changed state. Default: waits for terminated children (modified through option)
+	- If _status_ is not NULL, **wait**() and **waitpid**() store status information in the _int_ to which it points.
+	- On success, returns the process ID of the child whos state has changed
+
 ### Process termination
 1. Normaler Abbruch
 2. Fehlerabbruch
@@ -88,7 +116,8 @@
 	- Jeder Thread wird getrennt von den anderen Threads des Prozesses bearbeitet
 	- Jeder Thread besitzt einen eigenen Programmzähler
 - Threads teilen sich einen gemeinsamen Speicher (=> Synchronisation)
-- Examples/Application: 
+
+- **Examples/Application:** 
 	- In a browser, multiple tabs can be different threads
 	- **Multithreaded web server:** 
 		- Multiple threads allow for multiple requests to be satisfied simultaneously, without having to service requests sequentially or to fork off separate processes for every incoming request.
@@ -108,10 +137,26 @@
 ### Thread memory
 ![[../../_assets/thread memory.png | 400]]
 - Jeder Thread besitzt einen eigenen Stack und Registers
-- Threads teilen sich einen gemeinsamen Speicher (code, data, files)
+- Threads teilen sich einen gemeinsamen Speicher (code, data, files). Heap und Daten können von Threads gemeinsam genutzt werden (Shared memory)
 
 ### pthread
 [[C Programming]]
+- **int pthread_create**(pthread_t \*restrict thread, 
+				    const pthread_attr_t \*restrict attr,
+				    void \*(\*start_routine)(void \*),
+				    void \*restrict arg);****
+	- The function *pthread_create()* starts a new thread in the calling process. The new thread starts execution by invoking *start_routine();* *arg* is passed as the sole arguments of *start_routine().*
+	- The *attr* argument points to a *pthread_attr_t* structure whose contents are used at thread creation time to determine attributes for the new thread -> initialized using *pthread_attr_init()*. If attr is NULL then the thread is created with default attributes
+	- Before returning, a successful call to *pthread_create()* stores the ID of the new thread in the buffer pointed to by *thread*
+	- The new thread terminates in one of the following ways:
+		- It calls pthread_exit, specifying an exit status calue that is availabe to another thread in the same process that calls pthread_join()
+		- it returns from start_routine()
+		- it is canceled
+		- Any of the threads in the process calls exit(), or the main thread return from main()
+- **int phtread_join**(phtread_t thread, void \*\*retval)
+	- The *pthread_join()* function waits for the thread specified by *thread* to terminate. If that thread has already terminated, then *pthread_join()* returrns immediately.
+	- If *retval* is not NULL, then *pthread_join()* copies the exit status of the target thread into the location pointed to by retval.
+	- On success, *pthread_join()* returns 0; on error, it returns an error number
 #### bsp_pthread.c
 bsp_pthread.c
 ```C
@@ -234,8 +279,8 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 
 ### User level threads
 - Is implemented in the user level library (POSIX, Windows, Java threads), not created using the system calls
-- Thread switching doe snot need to call OS and to cause interrupt to Kernel
-- Kernel doesn't know about the user-lever thread and manages them as if they were singe-threaded processes
+- Thread switching does not need to call OS and to cause interrupt to Kernel
+- Kernel doesn't know about the user-lever thread and manages them as if they were single-threaded processes. There's a thread table in each process
 - Thread wird vom Nutzer verwaltet (Stack scheduling, usw.)
 ![[../../_assets/user level thread.png | 300]]
 ### Kernel level threads
@@ -283,11 +328,10 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - ![[../../_assets/critical region.png | 300]]
 ### Solution to race conditions
 4 conditions:
-1. An
-2. y two processes cannot be simultaneously inside their critical regions
-3. No assumptions may be made about speed or the number of CPUs
-4. Any process running outside its critical region cannot block other processes
-5. Any process should not have to wait forever to enter its critical region
+1. Any two processes cannot be simultaneously inside their critical regions
+2. No assumptions may be made about speed or the number of CPUs
+3. Any process running outside its critical region cannot block other processes
+4. Any process should not have to wait forever to enter its critical region
 #### Busy waiting
 - **Definition:** Continously testing a variable until some value appears is called busy waiting. It should usually be avoided, since it wastes CPU time
 	The repeated execution of a loop of code while waiting for an event to occur is called busy-waiting. The CPU is not engaged in any real productive activity during this period, and the process does not progress toward completion.
@@ -297,21 +341,24 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 	- ![[../../_assets/Busy waiting example.png | 350]]
 	- An int variable turn (initially 0) keeps track of whose turn it is to enter the critical region and examine or update the shared memory. 
 	- When process 1 leaves the critical region, it sets turn to 1, to allow process 2 to enter its critical region. Suppose that process 2 finishes its noncritical region, so both processes are in their noncritical regions (turn = 0)
-	- Suddenly, process 2 finishes its noncritical region before process 1 finishes its noncritical region and goes back to the top of its loop. It is not permitted to enter critical region (turn = 0, needs turn = 1) => violates condition 3
-	- Above: process 2; Below: Process 1![[../../_assets/busy waiting problem.png]]
+	- Suddenly, process 1 finishes its noncritical region before process 2 finishes its noncritical region and goes back to the top of its loop (has to wait until process 2 finishes noncritical region). It is not permitted to enter critical region (turn = 1, needs turn = 0) => violates condition 3
+	- ![[../../_assets/busy waiting problem.png]]
 #### Semaphore
-- New data type Semaphore and the processes up and down
+- **Dijkstrasche Lösung:** Einführung eines neuen Datentyps Semaphore und die Prozesse up und down
 	- Semaphore = 0, 1, 2,...: int value to count the number of wakeup processes saved for future use
 	- up and down:
-		- up => Semaphone++
-		- Semaphore > 0: down => Semaphore--
-		- Semaphore = 0: down => down = blocked (process is put to sleep)
-- up und down sind atomar: sie werden vom Betriebssystem nicht unterbrochen, bevor sie beendet sind bzw. den Zustand blocked erreicht haben (when a semaphore operation has started, no other process can access the semaphore until the operation has completed or blocked)
+		- Aufruf von up => Semaphone++
+		- Semaphore > 0: Aufruf von down => Semaphore--
+		- Semaphore = 0: Aufruf von down => down = blocked (process is put to sleep)
+	- up und down sind atomar: sie werden vom Betriebssystem nicht unterbrochen, bevor sie beendet sind bzw. den Zustand blocked erreicht haben (when a semaphore operation has started, no other process can access the semaphore until the operation has completed or is blocked)
+	- The semaphore can be initialized to the number of instances of the resource. Whenever a process wants to use that resource, it checks if the number of remaining instances is more than zero, i.e., the process has an instance available. Then, the process can enter its critical section thereby decreasing the value of the counting semaphore by 1. After the process is over with the use of the instance of the resource, it can leave the critical section thereby adding 1 to the number of available instances of the resource
 - **Producer-consumer problem:**
 	- Two processes share a common, fixed-size buffer. One of them, the producer, puts information into the buffer, and the other one, the comsumer, takes it out
+		- Produzent: Schreibt Informationen in einen Puffer
+		- Konsument: liest Informationen aus Puffer
 	- Problem: When the producer wants to put a new item in an already full buffer/producer wants to get items from an empty buffer
 	- The solution is for the producer to go to sleep, and sleeping producer will be awakened when the consumer has removed one or more items or vice versa
-- **Semaphore solution:**
+- **Semaphore solution:** 3 Semaphoren: mutex, empty, full
 	- **mutex = 0, 1 (initially 1 true)** (binäre Semaphore) regelt den wechselseitigen Ausschluss (mutual exclusion) => Nur ein Prozess kann pro Zeit in den Puffer schreiben/aus dem Puffer lesen
 	- **empty (initially N), full (initially 0) = 0, 1, ... N** dienen der Synchronisation => Bestimmte Ereignisse treten ein bzw. treten nicht ein (hier: leerer/voller Puffer). Ensures that the producer stops running when the buffer is full, and the consumer when the buffer is empty
 	- ![[../../_assets/semaphore solution 1.png | 500]]
@@ -326,19 +373,19 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 		- 4 Prozesse/Threads nähern sich der Barriere
 		- Alle Prozesse/Threads bis auf einen sind blockiert
 		- Nachdem der letzte Prozess die Barriere erreicht hat (bin-fertig-Signal), werden die PRozesse durchgelasse
-
-
 ## [[Classical IPC problems]]
 ### Resources:
 [Microsoft PowerPoint - os6.pptx (cu.edu.tr)](https://ceng.cu.edu.tr/uorhan/DersNotu/os6.pdf)
 ### Dining philosophers
 - **Aufgabestellung:** Philosopher picks up 2 forks, eat, then put down the forks and think
 - Wrong solutions:
-	- 1. Solution: take_fork() waits until the specified fork is available and seizes it. However, when all philosophers take their left forks simultaneouslyy, none will be able to take their right forks => deadlock
+	- 1. Solution: take_fork() waits until the specified fork is available and seizes it. However, when all philosophers take their left forks simultaneously, none will be able to take their right forks => deadlock
 		- ![[../../_assets/dining philosophers 1.png | 400]]
 	- 2. Solution: After taking left fork, the program checks to see if the right fork is available. If not, the philosopher puts down the left one, waits, and repeats the process. However, if all philosophers start the algorithm simultaneously, the process will go on forever => Starvation
 	- 3. Solution: Mutex semaphore => avoid starvation, but only 1 philosopher can eat at any instance
 - **Right solution: semaphore, N, LEFT, RIGHT, THINKING, HUNGRY, EATING** => keine Deadlocks, maximale Parallelisierung
+	- Speicherung auch der anderen Zustände: Einführung eines Feld state\[N], in dem für jeden Philosophen festgehalten wird, ob dieser gerade denkt, hungrig ist, oder isst (THINKING, HUNGRY, EATING)
+	- Einführung eines Semaphorenfeldes s\[N]: hungrige Philosophen können ggf. blockieren, falls eine der benögtigten Gabeln gerade in Benutzung ist
 	- ![[../../_assets/dining philosophers 2.png | 400]]
 ### The sleeping barber
 - **Aufgabestellung:** A barbershop consists of a waiting room with n chairs, and the barber room containing the barber chair. If there are no customers to be served, the barber goes to sleep. If a customer enters the barbershop and all chairs are occupied, then the customer leaves the shop. If the barber is busy, but chairs are available, then the customer sits in one of the free chairs. If the barber is asleep, the customer wakes up the barber
@@ -357,8 +404,7 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 ![[../../_assets/process behavior.png | 400]]
 - Fig. a: processes spend most of their time computing => compute-bound processes
 - Fig. b: processes spend most of their time waiting for I/O => I/O-bound processes
-### Scheduling for batch systems
-#### Shortest job first scheduling
+### Scheduling for batch systems: Shortest job first scheduling
 ![[../../_assets/shortest job first.png | 400]]
 - Scheduler picks the job with the shortest run-time first
 - a: t_mean = (8 + 12 + 16 + 20) / 4 = 14
@@ -368,8 +414,8 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - Admission scheduler: processes are first stored into an admission queue. Processes are then admitted in the system
 - Memory scheduler: Swap in / swap out. To be avoided: Disk storage is expensive in terms of time
 - CPU scheduler: chooses a job from memory by using a scheduling algorithm and processes it
-- Kritieren für Memory Scheduler: Kriterien für Memory Scheduler: Wie lange ist Prozess auf Platte? Letzter CPU-Verbrauch? Prozessgröße? Wie wichtig ist Prozess?
->[!NOTE] 3-Level-Scheduling-Verfahren
+- Kritieren für Memory Scheduler: Wie lange ist Prozess auf Platte? Letzter CPU-Verbrauch? Prozessgröße? Wie wichtig ist Prozess?
+>[!NOTE]+ 3-Level-Scheduling-Verfahren
 >1. Am Beginn dieses Schedulingverfahrens steht ein Input queue
 >2. Nun kommt der _Admission Scheduler_ (in der Folge AS genannt) ins Spiel. Der AS entscheidet, welcher Job ins weitere System (genauer gesagt in den Speicher) kommt. Die anderen Jobs verbleiben im Input Queue.
 >3. Vom Admission Scheduler werden die Jobs dann weiter in den RAM geladen. Hier beginnt nun die Arbeit des _Memory Schedulers_. Da jeder Job im Speicher Platz benötigt und es durchaus vorkommen kann, dass mehrere Jobs im Speicher vorhanden sind, entscheidet der Memory Scheduler, welcher Job im Hauptspeicher verbleibt und welcher auf die Festplatte ausgelagert wird (Swap)
@@ -382,7 +428,7 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - a: Ranfolge der laufbereiten Prozesse
 - b: Rangfolge der laufbereiten Prozesse, nachdem Prozess B sein Quantum aufgebraucht hat
 #### Priority scheduling
-- Priorities can be assigned to processes statically (assigned priority does not change anymore) or dynamically. It is often convenient to group processes into priority classes and use round robin on each class
+- Priorities can be assigned to processes statically (assigned priority does not change anymore) or dynamically. It is often convenient to **group processes into priority classes and use round robin on each class**
 - Scheduler may decrease the priority of the currently running process at each clock tick (to prevent high priority processes from running forever). If new priority drops below the next highest process, CPU switches
 ![[../../_assets/priority scheduling.png | 500]]
 #### Lottery scheduling
@@ -390,13 +436,15 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - More important processes can be given extra tickets to increase theit odds of winning
 - Idee:
 	- Jeder Prozess erhält eine Anzahl Lose
-	- Der Prozess, ddessen Los gexogen wurde, erhält die Ressource
-	- Prozesse mit höherer Priorität erhalten mehr Lose. "Im Mittel" wird die Ressource "gerecht" zugeteilt
-- Modifikation: "zusammengehörende" Prozesse können Lose austauschen
+	- Der Prozess, dessen Los gezogen wurde, erhält die Ressource
+	- Prozesse mit höherer Priorität erhalten mehr Lose
+	--> Im Mittel wird die Ressource gerecht zugeteilt
+	--> Wegen möglicher Ausreißer nicht in Echtzeitsystemen nutzbar
+	- Modifikation: zusammengehörende Prozesse können Lose austauschen --> Falls ein Client-Prozess blockier, überträgt er seine Lose dem Server-Prozess und erhält sie nach Blockadeende zurück
 ### Scheduling for real-time systems
 #### Thread scheduling
 - The process scheduler schedules only the kernel threads
-- User threads are mapped to kernel threads by the thread library. The OS and th scheduler is unaware of them
+- User threads are mapped to kernel threads by the thread library. The OS and the scheduler is unaware of them
 - Scheduling of ULTs:
 ![[../../_assets/thread scheduling.png | 400]]
 - Scheduling of KLTs:
@@ -405,7 +453,7 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 ![[../../_assets/hyperthreading (ohne).png | 400]]
 ![[../../_assets/hyperthreading (mit).png | 400]]
 - Das OS emuliert weitere CPUs
-- Dadurch werden Prozessor-Einheiten effektiver genutzt. z.B können float und int-Rechnungen parallel durchgeführ werden
+- Dadurch werden Prozessor-Einheiten effektiver genutzt. z.B können float und int-Rechnungen parallel durchgeführt werden
 - Hyperthreading nicht so leistungsfähig wie ein klassisches Multi-Prozessorsystem: die Threads in den logischen Prozessoren müssen sich dieselben physikalischen Prozessor-Einheiten teilen, wobei es zu Konflikten kommen kann.
 
 

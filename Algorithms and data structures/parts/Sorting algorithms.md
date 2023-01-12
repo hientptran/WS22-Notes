@@ -1,3 +1,4 @@
+[Algorithms and data structures](Algorithms%20and%20data%20structures.md)
 ## Algorithm complexity
 [Big-O Algorithm Complexity Cheat Sheet (Know Thy Complexities!) @ericdrowell (bigocheatsheet.com)](https://www.bigocheatsheet.com/)
 [How to find time complexity of an algorithm? | Adrian Mejia Blog](https://adrianmejia.com/how-to-find-time-complexity-of-an-algorithm-code-big-o-notation/)

@@ -1,6 +1,8 @@
 [[Shell]]
 [[C Programming]]
 [[Java threads]]
+[Klausurfragen](Klausurfragen.md)
+[Wiederholung](Wiederholung.md)
 
 1. Introduction
 2. [[Process and threads]]

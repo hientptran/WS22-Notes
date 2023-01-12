@@ -13,6 +13,8 @@
 
 ## Belegarbeit
 [[Dokumentation]]
+[Dokumentation (md)](Dokumentation%20(md).md)
+
 ### Englisch
 Each transaction is saved as an instance of the class ``Transaction``. This class has the private variables date (Type: LocalDate), name (Type: String), category (Type: String), and amount (Type: double). It constructor ``Transaction(String date, String name, String category, double amount)`` takes in a date string (which will then be converted to LocalDate using the class method ``convertDate(String string)``), a name string, a category string, and a double amount.
 

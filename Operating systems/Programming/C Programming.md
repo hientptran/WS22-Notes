@@ -173,6 +173,14 @@ sleep(2); //wait 2 seconds (only ganzzahlen)
 
 kill(pid, SIGTERM) //ends process with given pid
 ```
+#### Signals: kill()
+- int kill(pid_t pid, int signr) --> schickt Signale an andere Prozesse
+	- pid > 0: Das Signal signr wird an den Prozess pid geschickt
+		- 1 = SIGUP: hang up
+		- 2 = SIGINT = Ctrl+C: Tastatur-Interrupt
+		- 9 = SIGKILL: riskant: Kindprozess, temporary data, shared memory existieren weiter
+	- pid <= 0
+	- Rückgabewerte: 0 Erfold; -1 Fehler
 
 ### pthread
 [[pthread]]
@@ -296,6 +304,11 @@ gcc bsp_multithreading.c
 ```
 
 ### pipes
+- Eigenschaften von pipes:
+	- pipes können nur zwischen PRozessen eingerichtet werden, die gemeinsame Vorgahren besitzen
+	- Pipes sind halbduplex - Daten können immer nut in eine Richtung fließen
+		- Entweder Elternprozess schreibt, Kindprozess liest oder umgekehrt
+- **pipe**() creates a pipe, a unidirectional data channel that can be used for interprocess communication.  The array _pipefd_ is used to return two file descriptors referring to the ends of the pipe _pipefd\[0]_ refers to the read end of the pipe.  _pipefd\[1]_ refers to the write end of the pipe.  Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 ``` c
 #include <stdio.h>
 #include <fcntl.h>
@@ -303,8 +316,10 @@ gcc bsp_multithreading.c
 #include <string.h> //strlen
 
 int main() {
-//0: stdin; 1: stdout
+//0: read; 1: write
     int filehandles[2];
+    //filehandles[0]: file descriptor zum Lesen aus der Pipe
+    //filehandles[1]: file descriptor zum Schreiben in die Pipe
     printf("before: %d %d\n", filehandles[0], filehandles[1]);
     pipe(filehandles);
     printf("after: %d %d\n", filehandles[0], filehandles[1]);
