@@ -155,7 +155,7 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 
 ### User level threads
 - Is implemented in the user level library (POSIX, Windows, Java threads), not created using the system calls
-- Thread switching doe snot need to call OS and to cause interrupt to Kernel
+- Thread switching does not need to call OS and to cause interrupt to Kernel
 - Kernel doesn't know about the user-lever thread and manages them as if they were singe-threaded processes
 - Thread wird vom Nutzer verwaltet (Stack scheduling, usw.)
 ![[../../../_assets/user level thread.png | 300]]

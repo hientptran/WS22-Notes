@@ -24,7 +24,7 @@
 	1. ![[../../../_assets/process memory example 1.png | 250]]
 	2. ![[../../../_assets/process memory example 2.png | 250]]
 	3. ![[../../../_assets/process memory example 3.png | 250]]
-**2 threads:** 2 threads run parallel and create 2 stacks, head and data are used by both threads (memory allocation different between different OS version)
+**2 threads:** 2 threads run parallel and create 2 stacks, heap and data are used by both threads (memory allocation different between different OS version)
 	1. ![[../../../_assets/process memory example 4.png | 250]]
 	2. ![[../../../_assets/process memory example 5.png | 250]]
 
@@ -43,7 +43,7 @@
 ![[../../../_assets/prozesszustände.png]]
 
 1. **Ready**: Prozess befindet sich in Warteschleife (Anfangszustand). Scheduler wählt einen Prozess für die CPU aus
-2. **Running**: Prozess wird von CPU bearbeitet. <u>Nach Ablauf der "Zeitscheibe"</u> kommt ein Prozess zurück in die Warteschlange (2), sofern er nicht abgearbeitei ist (5) oder blockiert wird (3)
+2. **Running**: Prozess wird von CPU bearbeitet. <u>Nach Ablauf der "Zeitscheibe"</u> kommt ein Prozess zurück in die Warteschlange (2), sofern er nicht abgearbeitet ist (5) oder blockiert wird (3)
 3. **Blocked**: Prozess wartet z.B auf ein externes Ereignis, vebraucht keine CPU-Ressourcen. Nach Eintreten des Ereignisses wird Prozess wieder in Warteschlange gesteckt
 
 > [!NOTE]- Full process states

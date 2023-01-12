@@ -222,3 +222,21 @@ CREATE TABLE hoeren (
 2. Reduzierung von redundanter Information in Tupeln 
 3. Reduzierung von NULL-Werten in Tupeln 
 4. Vermeiden der Erzeugung falscher Informationen (”spurious tupels“) 
+
+## Join-Operationen
+
+## Rechtenvergabe
+
+- create role (role name)
+- create user (user name)
+- grant (operation z.B select/insert/usw.) on (table name) to (role)
+	- Example: SELECT pruefen (vorlnr, note) ON pruefen TO profs
+- grant all on (table) to (role)
+- löschen: revoke (rights) on (table(s)) from (role) cascade (or restrict)
+
+## Views/Sichten
+- create view pruefenSicht as
+		select MatrNr, VorlNr, PersNr
+		from pruefen
+
+## Präsentation

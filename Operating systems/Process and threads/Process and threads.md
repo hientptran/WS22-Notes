@@ -78,8 +78,6 @@
 > - Accounting information
 > - I/O status information**
 
-
-
 ## [[Threads]]
 #### Resources
 [Operating System Concepts: 4. Threads & Concurrency (yale.edu)](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fcodex.cs.yale.edu%2Favi%2Fos-book%2FOS10%2Fslide-dir%2FPPTX-dir%2Fch4.pptx&wdOrigin=BROWSELINK)
