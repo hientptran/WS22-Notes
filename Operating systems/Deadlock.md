@@ -12,9 +12,9 @@
 	4. **Kreisketten-Wartebedingungen:** Es existiert geschlossene Kette von 2 oder mehr Prozessen. Jeder Prozess wartet auf eine Ressource, worauf der nächste Prozess in der Kette Zugriff hat
 - **Englisch:**
 	1. **Exclusion condition:** each resource is either assigned to a process or available.
-	2. **Access and wait condition:** any process with access to resources can request additional resources
-	3. **Non-expropriation condition:** Access to resources already granted cannot be forcibly withdrawn from a process. Resource release only by process
-	4. **Circular chain waiting conditions:** Closed chain of 2 or more processes exists. Each process waits for a resource, to which the next process in the chain has access.
+	2. **Hold and wait condition:** any process with access to resources can request additional resources
+	3. **Non preemption condition:** Access to resources already granted cannot be forcibly withdrawn from a process. They must be explicitly released by the process holding them
+	4. **Circular wait conditions:** Closed chain of 2 or more processes exists. Each process waits for a resource, to which the next process in the chain has access.
 - **Beispiel:**
 	- Ein Prozess habe Zugriff auf Ressource A und benötige zudem Zugriff auf Ressource B
 	- Zur gleichen Zeit habe ein anderer Prozess Zugriff auf Ressource B und benötige Zugriff auf Ressource A
@@ -45,12 +45,14 @@
 ### Banker-Algorithmus
 - Für eine Ressource: Check to see if granting the request leads to a safe state
 - Für mehrere Ressourcen
-- E = existent, P = allocated, A = available = E - P
+- E = existing resource vector, P = (number of) processes , A = available resource vector = E - P
 
 ### Deadlocks vermeiden
 **1. Mutual exclusion**
 	- **Negation**: mehrere Prozesse sind einer Ressource zugeordnet
-	- **Idee**: Eine Geräte z.B Printer können gespoolt werden -> Nut Drucker-Dämon benutzt den Drucker -> Deadlock für Drucker wird verhindert
+	- **Idee**: Eine Geräte z.B Printer können gespoolt werden -> Nur Drucker-Dämon benutzt den Drucker -> Deadlock für Drucker wird verhindert
+	--> Spooling output so many processes can generate output at the same time. The only process which actually requests the physical printer is the printer daemon, which never requests any other resources.
+	- (Without spooling: manually wait for the printer to be ready before hitting print)
 	- **Problem**: nicht alle Geräte können gespoolt werden
 	- **Prinzipien:**
 		- Zuordnung von Ressourcen vermeiden, wenn nicht absolut notwendig
@@ -59,6 +61,7 @@
 	- **Negation**: Prozesse fordern keine weiteren Ressourcen an
 	- **Idee**: 
 		- Ressourcen schon bei Prozessstart anfordern -> Ein Prozess muss niemals auf R warten. 
+		- Require all processes to request all their resources before starting execution.
 		- If everything is available, the process will be allocated whatever it needs and can run to completion. If one or more resources are busy, nothing will be allocated and the process would just wait.
 	- **Problem**: 
 		- Bei Prozessstart oft nicht bekannt, welche Ressourcen wann benötigt werden
@@ -67,16 +70,17 @@
 **3. No preemption condition**
 	- **Negation**: Einem Prozess wird der Zugriff auf eine Ressource entzogen
 	- **Idee**: Lösche Zugriff per Hand (per Admin)
-	- **Problem**: Im allgemein keine sinvolle Option
+	- **Problem**: Im allgemein keine sinvolle Option (if a process has been assigned the printer and is in the middle of printing its output -> can't forcibly take away resource)
 **4. Circular wait condition**
 	- **Negation**: Lasse geschlossene Kreisketten nicht zu
-	- **Idee**: Einführung einer globalen Ressourcennummerierung
+	- **Idee**: Einführung einer globalen Ressourcennummerierung 
 		- P darf nur R mit höherer Nummer, als die er bereits hat, anfordern
+		- Provide aglobal numbering of all the resources
 		- Processes can request resources whenever they want to, but all requests must be made in numerical order. A request may request first a scanner and then a plotter, but may not request first a plotter and then a scanner
 	- **Problem**: Eine Nummerierung zu finden, die allen gefällt, ist schwer
 ![500](deadlock-vermeidung.png)
 
 ### Nicht-Ressourcen-Deadlocks
 - Prozesse können sich egenseitig blockieren: jeder Prozess wartet auf ein Ergebnis des anderen
-- Kann bei Semaphoren vorkommen: Angenommen, jeder Prozess wendet down() auf zwei Semaphoren an (mutex und another). Falls Reihenfolge falsch, ist Deadlock nötig
+- Kann bei Semaphoren vorkommen: Angenommen, jeder Prozess wendet down() auf zwei Semaphoren an (mutex und another). Falls Reihenfolge falsch, ist Deadlock möglich
 

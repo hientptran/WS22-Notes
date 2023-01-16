@@ -1,5 +1,7 @@
 [[Algorithms and data structures]]
-
+## Resources
+[Laboreinheit: ADS - Leitfaden – Aufgabenblatt 5 (htw-berlin.de)](https://moodle.htw-berlin.de/pluginfile.php/1593436/mod_resource/content/3/ALGO-Exercise-5-Guide.html)
+## Inhalt
 - **Definition**: Hashfunktion h ist eine Abbildung, die jedem (möglichen) Schlüssel einen Index der Hashtabelle H (Hashadresse) zuordnet
 - **Problem**: mehrere Schlüssel den gleichen Index bekommen -> Kollision 
 	- [Hash collision - Wikipedia](https://en.wikipedia.org/wiki/Hash_collision#:~:text=In%20computer%20science%2C%20a%20hash,a%20fixed%20length%20of%20bits.) 

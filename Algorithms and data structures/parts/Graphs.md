@@ -1,3 +1,5 @@
+[Algorithms and data structures](Algorithms%20and%20data%20structures.md)
+
 - Definition: _Graph_ G besteht aus einer endlichen nichtleeren Menge V (_vertices_), die die Knoten enthält, und der Menge E (_Edge_), die ungeordnete Paare von Konten enthält
 	- G = (V, E)
 	- V = {v1, v2, ..., vn}

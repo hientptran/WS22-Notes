@@ -10,6 +10,9 @@
 
 ## Resources
 [Index of /~cs1020/tut/15s2 (nus.edu.sg)](https://www.comp.nus.edu.sg/~cs1020/tut/15s2/)
+[Main | CS 61B Spring 2023 (datastructur.es)](https://sp23.datastructur.es/)
+[Laboreinheit: ADS - Leitfaden – Aufgabenblatt 5 (htw-berlin.de)](https://moodle.htw-berlin.de/pluginfile.php/1593436/mod_resource/content/3/ALGO-Exercise-5-Guide.html)
+
 
 ## Belegarbeit
 [[Dokumentation]]

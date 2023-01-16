@@ -72,7 +72,7 @@ kill(pid, SIGTERM) //ends process with given pid
 ![[../../_assets/prozesszustände.png]]
 
 1. **Ready**: Prozess befindet sich in Warteschleife (Anfangszustand). Scheduler wählt einen Prozess für die CPU aus
-2. **Running**: Prozess wird von CPU bearbeitet. <u>Nach Ablauf der "Zeitscheibe"</u> kommt ein Prozess zurück in die Warteschlange (2), sofern er nicht abgearbeitei ist (5) oder blockiert wird (3)
+2. **Running**: Prozess wird von CPU bearbeitet. <u>Nach Ablauf der "Zeitscheibe"</u> kommt ein Prozess zurück in die Warteschlange (2), sofern er nicht abgearbeitet ist (5) oder blockiert wird (3)
 3. **Blocked**: Prozess wartet z.B auf ein externes Ereignis, vebraucht keine CPU-Ressourcen. Nach Eintreten des Ereignisses wird Prozess wieder in Warteschlange gesteckt
 
 > [!NOTE]- Full process states
@@ -154,7 +154,7 @@ kill(pid, SIGTERM) //ends process with given pid
 		- it is canceled
 		- Any of the threads in the process calls exit(), or the main thread return from main()
 - **int phtread_join**(phtread_t thread, void \*\*retval)
-	- The *pthread_join()* function waits for the thread specified by *thread* to terminate. If that thread has already terminated, then *pthread_join()* returrns immediately.
+	- The *pthread_join()* function waits for the thread specified by *thread* to terminate. If that thread has already terminated, then *pthread_join()* returrns immediately. It allows the main thread to wait for other threads before continuing execution/clean up.
 	- If *retval* is not NULL, then *pthread_join()* copies the exit status of the target thread into the location pointed to by retval.
 	- On success, *pthread_join()* returns 0; on error, it returns an error number
 #### bsp_pthread.c
@@ -433,7 +433,7 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 ![[../../_assets/priority scheduling.png | 500]]
 #### Lottery scheduling
 - Give processes lottery tickets for CPU time => Process with the randomized lottery ticket gets the CPU.
-- More important processes can be given extra tickets to increase theit odds of winning
+- More important processes can be given extra tickets to increase their odds of winning
 - Idee:
 	- Jeder Prozess erhält eine Anzahl Lose
 	- Der Prozess, dessen Los gezogen wurde, erhält die Ressource

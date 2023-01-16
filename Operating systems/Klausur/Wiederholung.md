@@ -16,7 +16,7 @@
 - rm file; rm -r dir (lösche Ordner und alle Unterobjekte)
 - rmdir sourcedir: Lösche leeren Ordner
 - ln \[-s] file link_name: Link auf die Datei file; ln dir link_dir -s symbolischer Link
-	- ![](../_assets/Pasted%20image%2020230110193743.png)
+	- ![](Pasted%20image%2020230110193743.png)
 - quoto -v: Anzeige Plattenplatz (benutzt, frei, limit)
 - df: freier Plattenplatz -k in kB, -m in mB
 - du -h -d 1: disk usage der Unterverzeichnisse im aktuellen Arbeitsverzeichnis: mit "human-readable" Ausgabe und Anzeigendistanz=1
@@ -35,7 +35,7 @@
 	- s/S = User/Group-ID-on-execution-bit; in einem solchen Ordner gehören alle Dateien und Unterverzeichnisse dem Ordner-Eigentümer und nicht der UID/GID des Prozesses, der sie erzeugt haben
 	- SUID = 4 (user); SGID = 2 (group); Sticky = 1 (other)
 	- chmod 5633 a.ord --> d rwS -wx -wt a.ord
-	- ![](../_assets/Pasted%20image%2020230110195815.png)
+	- ![](Pasted%20image%2020230110195815.png)
 - Access control list: erwiterte Rechtevergabe
 - ssh
 	- Client initiates the connection by contacting server  

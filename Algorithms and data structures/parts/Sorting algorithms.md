@@ -18,6 +18,10 @@ Recommended by Reddit:
 
 ## Selection sort
 - The **selection sort algorithm** sorts an array by repeatedly finding the minimum element (considering ascending order) from the unsorted part and putting it at the beginning.
+- Simplified:
+	- Find smallest item
+	- Swap this item to the front and fix it
+	- repeat for unfixed items until all items are fixed
 ```java
 void selection_sort(int arr[]) {
 	int n = arr.length;
