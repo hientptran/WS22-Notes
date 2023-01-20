@@ -17,7 +17,7 @@
 - rmdir sourcedir: Lösche leeren Ordner
 - ln \[-s] file link_name: Link auf die Datei file; ln dir link_dir -s symbolischer Link
 	- ![](Pasted%20image%2020230110193743.png)
-- quoto -v: Anzeige Plattenplatz (benutzt, frei, limit)
+- quota -v: Anzeige Plattenplatz (benutzt, frei, limit)
 - df: freier Plattenplatz -k in kB, -m in mB
 - du -h -d 1: disk usage der Unterverzeichnisse im aktuellen Arbeitsverzeichnis: mit "human-readable" Ausgabe und Anzeigendistanz=1
 - chmod u+rwx, g+r, o+r a.txt (chmod xOy file)
@@ -43,4 +43,5 @@
 	- The server prompts the client for the password of the account they are attempting to log in with. Server will authenticate the user and discover whether access to the server should be granted  
 	- User can now log in to server host operating system. All further sessions will be encrypted by the symmetric key created
 
+[The Basics of Using the Sed Stream Editor to Manipulate Text in Linux | DigitalOcean](https://www.digitalocean.com/community/tutorials/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux)
 

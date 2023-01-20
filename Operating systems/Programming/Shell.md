@@ -142,3 +142,4 @@ echo "hello" >> file.txt #add hello to file
 >	3.  run program named `thing2`, pretending that the person at the keyboard typed the contents of `temp_file` as the input.
 >However, that's clunky, so they made pipes as a simpler way to do that. `thing1 | thing2` does the same thing as `thing1 > temp_file && thing2 < temp_file`
 
+[The Basics of Using the Sed Stream Editor to Manipulate Text in Linux | DigitalOcean](https://www.digitalocean.com/community/tutorials/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux)

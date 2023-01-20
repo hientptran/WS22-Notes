@@ -35,6 +35,11 @@
 3. Nutzeraktion
 4. Start eines Batchjobs
 
+1. System initialization.
+2. Execution of a process-creation system call by a running process.
+3. A user request to create a new process.
+4. Initiation of a batch job.
+
 #### fork() [C Programming](C%20Programming.md)
 ```C
 // fork() duplicates the parent process and creates child process. parent and child processes runs parallel
@@ -68,6 +73,11 @@ kill(pid, SIGTERM) //ends process with given pid
 3. Abbruch aufgrund eines schweren Fehler (oft: Programmierfehler)
 4. Abbruch durch anderen Prozess (Unix: kill; Windows: TerminateProcess)
 
+1. Normal exit (voluntary).
+2. Error exit (voluntary).
+3. Fatal error (involuntary).
+4. Killed by another process (involuntary).
+
 ### Process states
 ![[../../_assets/prozesszustände.png]]
 
@@ -87,6 +97,8 @@ kill(pid, SIGTERM) //ends process with given pid
 - A process control block (PCB) contains information about the process, i.e. registers, quantum, priority, etc. 
 - The process table is an array of PCB’s, that means logically contains a PCB for all of the current processes in the system.
 - Einigen wichtige Informationen zum Prozesszustand (systemabhängig), werden zu Beginn und am Ende der Zeitscheibe geladen bsz. gespeichert
+
+- To implement the process model, the operating system maintains a table (an array of structures), called the process table, with one entry per process. (Some authors call these entries process control blocks.) This entry contains important information about the process’ state, including its program counter, stack pointer, memory allocation, the status of its open files,
 
 > [!NOTE]- Some examples of information in PCBs
 > - **Pointer –** It is a stack pointer which is required to be saved when the process is switched from one state to another to retain the current position of the process.
@@ -124,6 +136,7 @@ kill(pid, SIGTERM) //ends process with given pid
 		- Dispatcher reads incoming requests from the netzrok. After examining the request, it chooses an idle worker thread and hands it the request. The dispatcher then wakes up the sleeping worker, moving it from blocked status
 		- ![[../../_assets/thread application example 2.png]]
 	- **Word processors** uses multiple threads: one thread to format the text, another thread to process inputs, etc. (a background thread may check spelling and grammar while a foreground thread processes user input ( keystrokes ), while yet a third thread loads images from the hard drive, and a fourth does periodic automatic backups of the file being edited.)
+		- One thread interacts with the user and the other handles reformatting in the background. As soon as the sentence is deleted from page 1, the interactive thread tells the reformatting thread to reformat the whole book. Meanwhile, the interactive thread continues to listen to the keyboard and mouse and responds to simple commands like scrolling page 1 while the other thread is computing madly in the background.
 		- ![[../../_assets/thread application example 1.png]]
 > [!NOTE]- Process vs Thread
 > The primary difference is that threads within the same process run in a shared memory space, while processes run in separate memory spaces.  
@@ -140,6 +153,7 @@ kill(pid, SIGTERM) //ends process with given pid
 - Threads teilen sich einen gemeinsamen Speicher (code, data, files). Heap und Daten können von Threads gemeinsam genutzt werden (Shared memory)
 
 ### pthread
+![500](pthreads.png)
 [[C Programming]]
 - **int pthread_create**(pthread_t \*restrict thread, 
 				    const pthread_attr_t \*restrict attr,
@@ -157,6 +171,7 @@ kill(pid, SIGTERM) //ends process with given pid
 	- The *pthread_join()* function waits for the thread specified by *thread* to terminate. If that thread has already terminated, then *pthread_join()* returrns immediately. It allows the main thread to wait for other threads before continuing execution/clean up.
 	- If *retval* is not NULL, then *pthread_join()* copies the exit status of the target thread into the location pointed to by retval.
 	- On success, *pthread_join()* returns 0; on error, it returns an error number
+	--> This procedure blocks the calling thread until a (specific) thread has exited
 #### bsp_pthread.c
 bsp_pthread.c
 ```C

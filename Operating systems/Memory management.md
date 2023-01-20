@@ -38,7 +38,7 @@ I/O wait time is a metric used to measure the amount of time the CPU waits for d
 - **Solution: base and limit registers**
 	- When a process is scheduled, the base register is loaded with the address of the start of the partition, and the limit register is loaded with the length of the partition
 	- physical address = absolute address + base address (CALL 100 = CALL 100 + 100K)
-	- If physical addresses is also checked: if physical address < limit register -> Error
+	- If physical addresses is also checked: if physical address > limit register -> Error
 
 ## Swapping
 - Excess processes are kept on disk and swapped in to run dynamically -> Memory allocation changes if processes are loaded into/leave the memory
