@@ -14,6 +14,22 @@
 - Callback
 - Ereignisbehandlung
 
+## Fragen
+- Unterschied zwischen Klasse und Objekt?
+	- A class is a template used for the creation of objects
+	- An object is an instance of a class
+- Erklärungsfragen (Konzepte, usw.)
+- Funktion vs Methode
+	- Function — a set of instructions that perform a task
+	- Method — a set of instructions that are associated with an object (verknüpft an der Klasse)
+
+## Notizen
+**implements** -> Interface
+**extends** -> (abstract) class
+@**Override** -> Funktion schon in der Parent-Class ist (schon implementiert/existiert), aber wird in der neuen Klasse anders implementiert
+**Objekterzeugung**: Klasse - Variablename - neue Instanz von Klassenkonstruktor(Parameter)
+
+-----------
 ## Generische Typen
 - Bei der Implementierung einer generischen Klasse werden die Datentypen ihrer Variablen nicht endgültig festgelegt, sondern statt dessen als Platzhalter sog. Typparameter angegeben.
 - **Beispiel:** ArrayList\<Integer> arrayList = new ArrayList() --> Die Klasse ArrayList ist eine generische Klasse und funktioniert mit verschiedenen Datentypen z.B Integer, String, usw. Sie wird so implementiert: class ArrayList\<T> (T: Typparameter)
@@ -101,3 +117,5 @@ All Implemented Interfaces:
 ## Abstrakte Klassen
 - Eine abstrakte Klasse vereint die Eigenschaften einer regulären Klasse mit denen eines Interfaces: Manchmal ist nicht nur, wie bei einem Interface, klar, welche Funktionalität alle implementierenden Klassen anbieten sollen, sondern für einen Teil dieser Funktionalität ist auch klar, dass diese auf die gleiche art implementiert sein wird. 
 - Nehmen wir beispielsweise ein Programm zum Setzen von Texten, das unterschiedliche Typen von Aufzählungen unterstützen können soll. Zu jeder Aufzählung müssen Elemente hinzugefügt und entfernt werden können, und es müssen die vorhandenen Elemente entsprechend formatiert ausgegeben werden können.
+
+

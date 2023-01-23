@@ -11,7 +11,7 @@
 	3. **Nicht-Enteignungsbedingung:** Bereits erteiler Zugriff auf Ressourcen kann einem Prozess nicht zwangsweise entzogen werden. Ressourcefreigabe nur durch Prozess
 	4. **Kreisketten-Wartebedingungen:** Es existiert geschlossene Kette von 2 oder mehr Prozessen. Jeder Prozess wartet auf eine Ressource, worauf der nächste Prozess in der Kette Zugriff hat
 - **Englisch:**
-	1. **Exclusion condition:** each resource is either assigned to a process or available.
+	1. **Mutual exclusion condition:** each resource is either assigned to a process or available.
 	2. **Hold and wait condition:** any process with access to resources can request additional resources
 	3. **Non preemption condition:** Access to resources already granted cannot be forcibly withdrawn from a process. They must be explicitly released by the process holding them
 	4. **Circular wait conditions:** Closed chain of 2 or more processes exists. Each process waits for a resource, to which the next process in the chain has access.
@@ -83,4 +83,24 @@
 ### Nicht-Ressourcen-Deadlocks
 - Prozesse können sich egenseitig blockieren: jeder Prozess wartet auf ein Ergebnis des anderen
 - Kann bei Semaphoren vorkommen: Angenommen, jeder Prozess wendet down() auf zwei Semaphoren an (mutex und another). Falls Reihenfolge falsch, ist Deadlock möglich
+- [CPS 356 Lecture notes: Semaphores (udayton.edu)](https://perugini.cps.udayton.edu/teaching/courses/cps346/lecture_notes/semaphores.html#:~:text=Deadlock,each%20other%20for%20some%20event.)
+```java
+Semaphore s=1, q=1
 
+process p0 {     
+   s.acquire();
+   q.acquire();
+   ...        
+   s.release();
+   q.release();
+}
+
+process p1 {     
+   q.acquire();
+   s.acquire();
+   ...        
+   q.release();
+   s.release();
+}
+// If _p_0 executes S.acquire(), then _p_1 executes Q.acquire(), the processes become deadlocked.
+```

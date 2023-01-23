@@ -222,8 +222,8 @@ int main() {
 	- Next fit: doesn't start from the beginning but where the last iteration left of
 	- Best fit: goes through the entire list and choose the smallest hole that fits
 	- Quick fit: Has separate lists with pointers to the holes with the most used sizes
-13. Virtual memory: OS keeps parts of the programms currently in use in main memory and the other parts in the disk. When a part of the program is needed, it can be swapped in.
-14. Paging:  programm generates virtual addresses and form the virtual address space. When virtual memory is used, the virtual addresses do not go directly to the memory bus. Instead, they go to and MMU that maps the virtual addresses onto the physical memory. The virtual address space is divided into pages. The corresponding units in the physical memory are called page frames. This information is stored on a page table.
+13. Virtual memory: OS keeps parts of the program currently in use in main memory and the other parts in the disk. When a part of the program is needed, it can be swapped in.
+14. Paging:  program generates virtual addresses and form the virtual address space. When virtual memory is used, the virtual addresses do not go directly to the memory bus. Instead, they go to and MMU that maps the virtual addresses onto the physical memory. The virtual address space is divided into pages. The corresponding units in the physical memory are called page frames. This information is stored on a page table.
 15. Pages need to be replaced when a page fault occurs. The OS has to choose a page to remove from memory to make space for the page that has to be brought in
 16. Page replacement algorithm: FIFO, LRU
 17. FIFO page replacement: first in first out - manages a list of pages, the first page on this list will be replaced first -> Disadvantage: The page that stays longest in memory (at the end of queue and is swapped out) is the one most frequently used.

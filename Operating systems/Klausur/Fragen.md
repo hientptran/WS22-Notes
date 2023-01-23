@@ -191,7 +191,7 @@ int main(int argc, char *argv[]) {
 4. **What are memory-swapped files?**
 5. What are the benefits of memory swapped files?
 6. **What do the functions mmap() and munmap() do?**
-7. What is the function of a file lock?
+7. What is the function of a file lock?=
 8. What are the types of file locks?
 9. What are the types of directories?
 10. What are the types of file paths?

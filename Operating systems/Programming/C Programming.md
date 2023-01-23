@@ -1,9 +1,12 @@
 [[Operating systems]]
 
 ### c basics
-1. Compile: gcc -o hallo.c //write output to output file (.o)
-2. Link: gcc hallo.o -o hallo
-3. Run: ./hallo
+[GCC and Make - A Tutorial on how to compile, link and build C/C++ applications (ntu.edu.sg)](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html)
+1. Compile: gcc -c hallo.c --> compile object/machine code from source code
+3. Link: gcc hallo.o -o hallo --> link object code hallo.o into executable hallo
+4. Compile + Link: gcc -o hallo hallo.c --> compile and link source code hello.c into executable code hallo; gcc hello.c --> compile and link source file hello.c to exec file a
+5. Run: ./hallo
+![500](gcc%20compilation.png)
 
 ### **classes**
 ```c
@@ -18,7 +21,9 @@ int main() {
 //my_sub.c
 ```
 ### pointers
-- ein Pointer ziehgt auf die Startadresse eines Datenobjekts im Hauptspeicher
+[How to understand the pointer star * in C? - Stack Overflow](https://stackoverflow.com/questions/5484624/how-to-understand-the-pointer-star-in-c)
+[Pointers in C: when to use the ampersand and the asterisk? - Stack Overflow](https://stackoverflow.com/questions/2094666/pointers-in-c-when-to-use-the-ampersand-and-the-asterisk)
+- ein Pointer ziegt auf die Startadresse eines Datenobjekts im Hauptspeicher
 - &: Speicheradresse eines Datenobjekts
 - \*: liefert/ändert den Inhalt einer Speicheradresse
 ```c
@@ -40,6 +45,12 @@ int main() {
     printf("a=%d\n", a); //31
     
     return 0;
+
+//////
+	int* p; //var p is a pointer to int type
+	int i; //int val
+	int i2 = *p; //int i2 is assigned with int value that pointer p is pointing to
+	
 }
 ```
 
@@ -180,7 +191,7 @@ kill(pid, SIGTERM) //ends process with given pid
 		- 2 = SIGINT = Ctrl+C: Tastatur-Interrupt
 		- 9 = SIGKILL: riskant: Kindprozess, temporary data, shared memory existieren weiter
 	- pid <= 0
-	- Rückgabewerte: 0 Erfold; -1 Fehler
+	- Rückgabewerte: 0 Erfolg; -1 Fehler
 
 ### pthread
 [[pthread]]
@@ -305,7 +316,7 @@ gcc bsp_multithreading.c
 
 ### pipes
 - Eigenschaften von pipes:
-	- pipes können nur zwischen PRozessen eingerichtet werden, die gemeinsame Vorgahren besitzen
+	- pipes können nur zwischen Prozessen eingerichtet werden, die gemeinsame Vorgahren besitzen
 	- Pipes sind halbduplex - Daten können immer nut in eine Richtung fließen
 		- Entweder Elternprozess schreibt, Kindprozess liest oder umgekehrt
 - **pipe**() creates a pipe, a unidirectional data channel that can be used for interprocess communication.  The array _pipefd_ is used to return two file descriptors referring to the ends of the pipe _pipefd\[0]_ refers to the read end of the pipe.  _pipefd\[1]_ refers to the write end of the pipe.  Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.

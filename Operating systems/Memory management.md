@@ -100,6 +100,7 @@ I/O wait time is a metric used to measure the amount of time the CPU waits for d
 	- If we have n page table entries a matrix of n x n bits, initially all zero, is maintained. 
 	- When a page frame, k, is referenced then all the bits of the k row are set to one and all the bits of the k column are set to zero. 
 	- At any time the row with the lowest _**binary**_ value is the row that is the least recently used (where row number = page frame number). The next lowest entry is the next recently used; and so on.
+![500](lru.png)
 
 ## Modelling page replacement algorithms
 - **Belady anomaly:** more page frames doesn't reduce the number of page faults
