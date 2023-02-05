@@ -40,7 +40,7 @@ Jede Zeile der csv-Datei ist wie folgt formatiert: Datum, Name, Kategorie, Betra
 Standardkategorien werden aus der Datei ``categories.csv``  importiert:
 ![[Screenshot (61).png | 500]]
 Die folgende Optionen werden gezeigt. Geben Sie die entsprechende Nummer ein, um den gewählten Befehl auszuführen. 
-![500](../../_assets/Screenshot%20(87).png)
+![500](Screenshot%20(87).png)
 Eine ungültige Option führt zu einem Fehlermeldung und das Programm wird Sie auffordern, einen gültigen Wert einzugeben.
 
 ### 2. Alle Transaktionen anzeigen

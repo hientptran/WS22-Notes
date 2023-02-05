@@ -1,39 +1,34 @@
 ## constructor chaining
 [Constructor Chaining In Java with Examples - GeeksforGeeks](https://www.geeksforgeeks.org/constructor-chaining-java-examples/)
 Constructor chaining is the process of calling one constructor from another constructor with respect to current object.
--   **Within same class**: It can be done using **this()** keyword for constructors in the same class
--   **From base class:** by using **super()** keyword to call the constructor from the base class.
+-  **Within same class**: It can be done using **this()** keyword for constructors in the same class
+-  **From base class:** by using **super()** keyword to call the constructor from the base class.
 ```java
 // Java program to illustrate Constructor Chaining
 // within same class Using this() keyword
-class Temp
-{
+class Temp {
 	// default constructor 1
 	// default constructor will call another constructor
 	// using this keyword from same class
-	Temp()
-	{
+	Temp() {
 		// calls constructor 2
 		this(5);
 		System.out.println("The Default constructor");
 	}
 
 	// parameterized constructor 2
-	Temp(int x)
-	{
+	Temp(int x) {
 		// calls constructor 3
 		this(5, 15);
 		System.out.println(x);
 	}
 
 	// parameterized constructor 3
-	Temp(int x, int y)
-	{
+	Temp(int x, int y) {
 		System.out.println(x * y);
 	}
 
-	public static void main(String args[])
-	{
+	public static void main(String args[]) {
 		// invokes default constructor first
 		new Temp();
 	}
@@ -69,10 +64,11 @@ public class MyClass {
 	}
 }
 ```
+- super(): Elternklasse zugreifen; Constructor von der Elternklasse aufrufen
+- this(): Constructor von der Kindklasse aufrufen
 ## @Override
 [Overriding in Java - GeeksforGeeks](https://www.geeksforgeeks.org/overriding-in-java/)
-- Beim Überschreiben einer Methode kann es passieren, dass wir eine Methode mit demselben Namen, aber mit einer anderen Signatur erstellen. 
-	Das Ergebnis ist eine Methodenüberladung und nicht eine Überschreibung. 
+- Beim Überschreiben einer Methode kann es passieren, dass wir eine Methode mit demselben Namen, aber mit einer anderen Signatur erstellen. Das Ergebnis ist eine Methodenüberladung und nicht eine Überschreibung. 
 - Um dem Compiler mitzuteilen, dass es sich um eine Überschreibung handelt, sollte die Annotation @Override vor der Methodenbeschreibung eingefügt werden
 - In any object-oriented programming language, Overriding is a feature that allows a subclass or child class to provide a specific implementation of a method that is already provided by one of its super-classes or parent classes. When a method in a subclass has the same name, same parameters or signature, and same return type(or sub-type) as a method in its super-class, then the method in the subclass is said to _override_ the method in the super-class.
 ```java
@@ -283,6 +279,7 @@ All Implemented Interfaces:
 	- Verlieren sie daran ihr Interesse, melden sie sich einfach ab.
 
 ## functional interfaces
+- interface mit nur einer Klasse
 
 ## lambda functions
 [The Double Colon Operator in Java 8 | Baeldung](https://www.baeldung.com/java-8-double-colon-operator)

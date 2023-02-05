@@ -174,7 +174,7 @@ public class App {
 }
 ```
 
-![[../../_assets/command_patterns.png | 500]]
+![[command_patterns.png | 500]]
 
 ## Resources
 [Command Design Pattern (sourcemaking.com)](https://sourcemaking.com/design_patterns/command)

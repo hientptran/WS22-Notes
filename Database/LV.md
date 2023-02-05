@@ -20,7 +20,7 @@
 
 **Datenbanksystem** (DBS): Datenbank + DBMS + Anwendung mit Abfragen und Updates der Datensätze
 
-![[../_assets/datenbankumgebung.png | 400]]
+![[datenbankumgebung.png | 400]]
 
 **Ein Modell** wird konstruiert, um das Verständnis zu verbessern und um Details zu abstrahieren
 	- Verständnis: Die Bedeutung der Daten und ihre Beziehungen untereinander als Informationsstrukturen darstellen
@@ -54,7 +54,7 @@ In einem **Entity-Relationship-Modell** werden Objekte der realen Welt, die für
 	- An attribute **composed of many other attribute** is called as **composite attribute.** For example, Address attribute of student Entity type consists of Street, City, State, and Country. In ER diagram, composite attribute is represented by an oval comprising of ovals.
 	- A **multivalued attribute** is an attribute consisting **more than one value** for a given entity. For example, Phone_No (can be more than one for a given student). In ER diagram, multivalued attribute is represented by double oval.
 	- An attribute which can be **derived from other attributes** of the entity type is known as derived attribute. e.g.; Age (can be derived from DOB). In ER diagram, derived attribute is represented by dashed oval.
-	- ![[../_assets/ER_attributes.png]]
+	- ![[ER_attributes.png]]
 
 **Schlüssel** (key): identifizierende Attributkombination
 - identifizierendes Attribut einer Entität ist unterstrichen 

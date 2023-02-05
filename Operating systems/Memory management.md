@@ -11,19 +11,19 @@
 
 ## Grundlagen
 ### Mono-Programmierung ohne Swapping oder Paging
-![[../_assets/Pasted image 20221213164057.png | 500]]
+![[Pasted image 20221213164057.png | 500]]
 - Bild: 3 einfache Arten der Speicherorganisation: OS mit einem Nutzerprozess
 - Run one program at a time by sharing the memory between that program and the OS
 - As soon as the user types a command, the OS copies the requested program from disk to memory and executes it
 ### Multi-Programmierung mit festen Partitionen
-![[../_assets/Pasted image 20221213164215.png | 400]]
+![[Pasted image 20221213164215.png | 400]]
 - Fixed partitions: Divide memory up into n partitions. When a job arrives, it can be put into the input queue for the smallest partition large enough to hold it
 	- (a) fixed partition with separate input queues (disadvantage: queue for large partition is empty but queue for small partition is full)
 	- (b) only one input queue: whenever a partition becomes free, the job at the front of queue that fits could be loaded into it
 ### Modellierung von Multiprogramming
 I/O wait time is a metric used to measure the amount of time the CPU waits for disk I/O operations to complete. A high I/O wait time indicates an idle CPU and outstanding I/O requests (An outstanding request is one which has not been served yet)—while it might not make a system unhealthy, it will limit the performance of the CPU.
 [G53OPS : Memory Management (nott.ac.uk)](https://www.cs.nott.ac.uk/~pszgxk/courses/g53ops/Memory%20Management/MM02-modelingmulti.html)
-![[../_assets/Pasted image 20221213170431.png | 500]]
+![[Pasted image 20221213170431.png | 500]]
 ### Relokation und Protektion
 - **In welche Speicherbereiche-/-partionen soll ein Programm geladen werden?**
 	- Adressen von Variablen und Programmroutinen können nicht absolut angegeben werden: die absoluten Adressen eines kompilierten Binärcodes können nicht 1:1 als physikalische Speicheradressen genutzt werden -> Relokationsproblem
@@ -44,13 +44,13 @@ I/O wait time is a metric used to measure the amount of time the CPU waits for d
 - Excess processes are kept on disk and swapped in to run dynamically -> Memory allocation changes if processes are loaded into/leave the memory
 - Nachteil: Schattierte Bereiche = ungenutzter Speicher
 - Picture: Initially only Process A is in memory. Then processes B and C are created or swapped in from disk. In Fig. (d) A is swapped out to disk. Then D comes in and B goes out. Finally A comes in again
-![[../_assets/Pasted image 20221213191026.png | 500]]
+![[Pasted image 20221213191026.png | 500]]
 - Picture: Most processes grow as they run, it is probably a good idea to allocate a little extra memory whenever a process is swapped in or moved, to reduce the overhead of moving or swapping processes. When swapping processes to disk, only the memory actually in use should be swapped: it is wasteful to swap the extra memory as well.
-![[../_assets/Pasted image 20221213191055.png | 500]]
+![[Pasted image 20221213191055.png | 500]]
 
 ## Memory management with bitmaps
 - With a bitmap, memory is divided up into allocation units, perhaps as small as a few words and perhaps as large as several kilobytes. Corresponding to each allocation unit is a bit in the bitmap. If it is 0, the unit is free and if it is 1 it is occupied (not empty).
-![[../_assets/Pasted image 20221213191520.png | 500]]
+![[Pasted image 20221213191520.png | 500]]
 - (a) a part of memory with 5 processes and 3 holes. The tick marks show the memory allocation units. The shaded regions (0 in the bitmap) are free
 - (b) the corresponding bitmap
 - (c) the same information as list
@@ -58,7 +58,7 @@ I/O wait time is a metric used to measure the amount of time the CPU waits for d
 ## Memory management with linked lists
 - Another way of keeping track of memory is to maintain a linked list of allocated and free memory segments, where a segment is either a process or a hope between 2 processes.
 - Each entry in the list specifies a hole (H) or process (P), the address at which it starts, the length, and a pointer to the next entry
-![[../_assets/Pasted image 20221213192054.png | 500]]
+![[Pasted image 20221213192054.png | 500]]
 - In this example, the segment list is kept sorted by address. Sorting this way has the advantage that when a process terminates or is swapped out, updating the list is straightforward. A terminating process normaly has 2 neighbors. These may be either processses or holes, leading to the 4 combinations
 - When the processes and holes are kept on a list sorted by address, several algorithms can be used to allocate memory for a newly created process (or an existing process being swapped in form disk)
 - **Listen-Algorithmen, um neuen in Speicher zu laden:**

@@ -28,6 +28,11 @@
 **extends** -> (abstract) class
 @**Override** -> Funktion schon in der Parent-Class ist (schon implementiert/existiert), aber wird in der neuen Klasse anders implementiert
 **Objekterzeugung**: Klasse - Variablename - neue Instanz von Klassenkonstruktor(Parameter)
+this()
+super()
+this.variable
+super.variable
+[Java : Comparable vs Comparator - Stack Overflow](https://stackoverflow.com/questions/4108604/java-comparable-vs-comparator)
 
 -----------
 ## Generische Typen
@@ -113,9 +118,152 @@ All Implemented Interfaces:
 ```
 - Das ist die Liste der Interfaces, die `LinkedList` implementiert - also die Liste der Funktionalität, die es garantiert, anzubieten
 - Some interfaces: Iterable\<T>, Iterable\<T>, Comparable\<T>, Comparator\<T>
+```java
+class A {
+	public abstract void func() {}
+	}
+}
+class B implements A {
+	@Override
+	public void func() {
+		System.out.println("B.func()")
+	}
+}
+
+public class MyClass {
+	public static void main(String[] args) {
+	}
+}
+```
 
 ## Abstrakte Klassen
 - Eine abstrakte Klasse vereint die Eigenschaften einer regulären Klasse mit denen eines Interfaces: Manchmal ist nicht nur, wie bei einem Interface, klar, welche Funktionalität alle implementierenden Klassen anbieten sollen, sondern für einen Teil dieser Funktionalität ist auch klar, dass diese auf die gleiche art implementiert sein wird. 
 - Nehmen wir beispielsweise ein Programm zum Setzen von Texten, das unterschiedliche Typen von Aufzählungen unterstützen können soll. Zu jeder Aufzählung müssen Elemente hinzugefügt und entfernt werden können, und es müssen die vorhandenen Elemente entsprechend formatiert ausgegeben werden können.
 
+------------------
 
+## **Erstes Programm**
+-  Programmaufbau  
+```java
+public class meineErstesProgramm {
+    //Einzeiliger Kommentar
+    /*
+    Mehrzeiliger
+    Kommentar
+     */
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}
+```
+-  Kommentare: ein- und mehrzeilig  
+```java
+//einzeilig
+/* mehrzeilig */
+```
+-  Dateneingabe und -ausgabe (siehe auch [Übungsblatt 1](https://moodle.htw-berlin.de/mod/assign/view.php?id=1325343 "Übungsblatt 1"))  
+```java
+JOptionPane.showInputDialog(String prompt);
+JOptionPane.showMessageDialog(String message);
+
+Scanner s = new Scanner;
+System.out.println(String message); //print, printf
+int readInt = s.nextInt();
+```
+-  Vorzeitiges Beenden eines Programms (siehe auch [Übungsblatt 3](https://moodle.htw-berlin.de/mod/assign/view.php?id=1332630 "Übungsblatt 3"))  
+```java
+exit(int status);
+```
+
+## **Variablen und Datentypen**
+
+-  Deklaration & Initialisierung   
+```java
+//Deklaration/Instanziierung
+int myInteger;
+//Initialisierung
+myInteger = 5;
+```
+-  Elementare Datentypen vs. Referenzdatentypen  
+	- Elementare Datentypen: byte , short , int (integer), long , float , double , char, boolean
+	- Referenzdatentypen: Objekte, Strings und Arrays --> Objekt aus der Realität darstellen
+-  Typenumwandlung (explizit, implizit)  
+	- **Explizite Typumwandlung** (Casten): bei der im Quellcode die Typumwandlung ausdrücklich angewiesen wird. (Groß --> Klein)
+	- **Implizite Typumwandlung** – bei der die Typumwandlung nicht extra im Quelltext angewiesen wird, sondern automatisch vom Compiler durchgeführt wird. (Klein --> Groß)
+```
+// Explizite Typumwandlung
+int valueInt = 128;
+short valueShort = (short) valueInt;
+
+//Implizite Typumwandlung
+valueShort = 2013;
+float valueFloat = valueShort;
+```
+-  Sichtbarkeitsbereiche  
+![[access modifiers java.png]]
+-  Daten einlesen und speichern (siehe [Übungsblatt 3](https://moodle.htw-berlin.de/mod/assign/view.php?id=1332630 "Übungsblatt 3") (Aufgabe 3), 7 (Aufgabe 2), 12 (Aufgabe 1))  
+```java
+Scanner scanner = new Scanner(new File("insurance.csv")); 
+scanner.nextLine(); 
+while (scanner.hasNextLine()) { 
+	String line = scanner.nextLine(); 
+	String[] values = line.split(","); 
+	age[i] = Integer.parseInt(values[0]);
+}
+```
+- Enumerations/Aufzählungen (siehe auch [Übungsblatt 12](https://moodle.htw-berlin.de/mod/assign/view.php?id=1364492 "Übungsblatt 12"))  
+- An `enum` is a special "class" that represents a group of **constants** (unchangeable variables, like `final` variables).
+- To create an `enum`, use the `enum` keyword (instead of class or interface), and separate the constants with a comma. Note that they should be in uppercase letters:
+```java
+[<Zugriffkodierer>] enum <Enum-Name> {
+	<Komma-getrennte Liste von Konstanten>
+}
+
+enum Color { RED, BLUE, GREEN, BLACK }
+Color color1, color2;
+color1 = Color.RED;
+color2 = Color.BLACK;
+color3 = null;
+````
+
+## Vererbung
+- Keywords: this, super, this(), super()
+- Realisierung von Methoden
+```java
+class A {
+	public void func() {
+		System.out.println("A.func()")
+	}
+}
+class B extends A {
+	@Override
+	public void func() {
+		System.out.println("B.func()")
+	}
+}
+class C extends B {
+	@Override
+	public void func() {
+		System.out.println("C.func()")
+	}
+	public void func2() {
+		System.out.println("C.func2()")
+	}
+}
+
+public class MyClass {
+	public static void main(String[] args) {
+		A obj1 = new A();
+		A obj2 = new B();
+		A obj3 = new C();
+		obj1.func(); //A.func()
+		obj2.func(); //B.func()
+		obj3.func(); //C.func()
+		obj3.func2(); //Fehler!
+	}
+}
+```
+- Methode toString(), equals(), getClass()
+- anonyme innere Klasse
+
+## Objektorientierte Programmierung

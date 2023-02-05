@@ -20,7 +20,7 @@ Advanced: [Chapter 0   Preface — Computer Systems Fundamentals (jmu.edu)](h
 > 
 > B continues to run, saves the name of its file in slot 7 and updates in to be an 8
 > Process A runs again, writes its file name in slot 7, erasing B's file name. Then it sets in to 8. The spooler directory is now internally consistent, so the printer daemon will not notice anything wrong, but process B will never receive any output
-> ![[../../../_assets/race conditions example.png | 300]]
+> ![[race conditions example.png | 300]]
 > 
 > Source: [6 IPC.pptx (live.com)](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fweb.karabuk.edu.tr%2Fyasinortakci%2Fdokumanlar%2Fisletim_sistemleri%2F6%2520IPC.pptx%23%3A~%3Atext%3DCritical%2520Regions%26text%3DThat%2520part%2520of%2520the%2520program%2Cfrom%2520doing%2520the%2520same%2520thing.&wdOrigin=BROWSELINK)
 
@@ -28,7 +28,7 @@ Advanced: [Chapter 0   Preface — Computer Systems Fundamentals (jmu.edu)](h
 
 ### Critical region
 - Teil eines Programm, der auf einen gemeinsamen Speicher mehrerer Prozesse zugreift
-- ![[../../../_assets/critical region.png | 400]]
+- ![[critical region.png | 400]]
 ### Solution to race conditions
 4 conditions:
 1. Any two processes cannot be simultaneously inside their critical regions
@@ -41,12 +41,12 @@ Advanced: [Chapter 0   Preface — Computer Systems Fundamentals (jmu.edu)](h
 	
 	Busy-waiting, busy-looping or spinning is a technique in which a process repeatedly checks to see if a condition is true, such as whether keyboard input or a lock is available. Busy waiting means a process simply spins, (does nothing but continue to test its entry condition) while it is waiting to enter its critical section. This continues to use (waste)
 - **Example:**
-	- ![[../../../_assets/Busy waiting example.png | ]]
+	- ![[Busy waiting example.png | ]]
 	- An int variable turn (initially 0) keeps track of whose turn it is to enter the critical region and examine or update the shared memory. 
 	- When process 1 leaves the critical region, it sets turn to 1, to allow process 2 to enter its critical region. Suppose that process 2 finishes its noncritical region, so both processes are in their noncritical regions (turn = 0)
 	- Suddenly, process 2 finishes its noncritical region before process 1 finishes its noncritical region and goes back to the top of its loop. It is not permitted to enter critical region (turn = 0, needs turn = 1) => violates condition 3
-	- ![[../../../_assets/Busy waiting example.png]]
-	- Above: process 2; Below: Process 1![[../../../_assets/busy waiting problem.png]]
+	- ![[Busy waiting example.png]]
+	- Above: process 2; Below: Process 1![[busy waiting problem.png]]
 #### Semaphore
 - New data type Semaphore and the processes up and down
 	- Semaphore = 0, 1, 2,...: int value to count the number of wakeup processes saved for future use
@@ -62,15 +62,15 @@ Advanced: [Chapter 0   Preface — Computer Systems Fundamentals (jmu.edu)](h
 - **Semaphore solution:**
 	- **mutex = 0, 1 (initially 1 true)** (binäre Semaphore) regelt den wechselseitigen Ausschluss (mutual exclusion) => Nur ein Prozess kann pro Zeit in den Puffer schreiben/aus dem Puffer lesen
 	- **empty (initially N), full (initially 0) = 0, 1, ... N** dienen der Synchronisation => Bestimmte Ereignisse treten ein bzw. treten nicht ein (hier: leerer/voller Puffer). Ensures that the producer stops running when the buffer is full, and the consumer when the buffer is empty
-	- ![[../../../_assets/semaphore solution 1.png | 500]]
-	- ![[../../../_assets/semaphore solution 2.png | 500]]
-	- ![[../../../_assets/semaphore solution 3.png | 500]]
+	- ![[semaphore solution 1.png | 500]]
+	- ![[semaphore solution 2.png | 500]]
+	- ![[semaphore solution 3.png | 500]]
 - **Barriers**
 	- Intended for groups of processes rather than two-process producer-consumer situation
 	- Some applications are divided into phases and have the rule that no process may proceed into the next phase until all processes are ready to proceed (z.B Zwischenergebnisse müssen abgewartet werden)
 	- This is achieved by placing a barrier at the end of each phase
 	- **Example**:
-		- ![[../../../_assets/barrier example.png | 500]]
+		- ![[barrier example.png | 500]]
 		- 4 Prozesse/Threads nähern sich der Barriere
 		- Alle Prozesse/Threads bis auf einen sind blockiert
 		- Nachdem der letzte Prozess die Barriere erreicht hat (bin-fertig-Signal), werden die PRozesse durchgelasse

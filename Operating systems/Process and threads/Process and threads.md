@@ -10,7 +10,7 @@
 - Batch systems work in terms of "jobs." Many modern process concepts are still expressed in terms of jobs
 ### Process memory
 
-![[../../_assets/process memory.png | 150]]
+![[process memory.png | 150]]
 
 - **Text:** compiled program code, read in from non-volatile storage (_a type of computer memory that can retain stored information even after power is removed_) when the program is launched
 - **Data**: global and static variables, initialized prior to executing main
@@ -22,12 +22,12 @@
 #### example (bsp_multithreading.c) 
 [[Process and threads#multithreading.c]]
 **2 processes:** after a process: stack freigegeben, heap nicht freigegeben, daten bleibt erhalten
-	1. ![[../../_assets/process memory example 1.png | 250]]
-	2. ![[../../_assets/process memory example 2.png | 250]]
-	3. ![[../../_assets/process memory example 3.png | 250]]
+	1. ![[process memory example 1.png | 250]]
+	2. ![[process memory example 2.png | 250]]
+	3. ![[process memory example 3.png | 250]]
 **2 threads:** 2 threads run parallel and create 2 stacks, head and data are used by both threads (memory allocation different between different OS version)
-	1. ![[../../_assets/process memory example 4.png | 250]]
-	2. ![[../../_assets/process memory example 5.png | 250]]
+	1. ![[process memory example 4.png | 250]]
+	2. ![[process memory example 5.png | 250]]
 
 ### Process creation
 1. Systemstart
@@ -79,7 +79,7 @@ kill(pid, SIGTERM) //ends process with given pid
 4. Killed by another process (involuntary).
 
 ### Process states
-![[../../_assets/prozesszustände.png]]
+![[prozesszustände.png]]
 
 1. **Ready**: Prozess befindet sich in Warteschleife (Anfangszustand). Scheduler wählt einen Prozess für die CPU aus
 2. **Running**: Prozess wird von CPU bearbeitet. <u>Nach Ablauf der "Zeitscheibe"</u> kommt ein Prozess zurück in die Warteschlange (2), sofern er nicht abgearbeitet ist (5) oder blockiert wird (3)
@@ -91,7 +91,7 @@ kill(pid, SIGTERM) //ends process with given pid
 > - **Running**: CPU working on this process's instructions
 > - Waiting: Process not running, waiting for some resource to become available or for some event to occur (keyboard input, disk access request, timer, child process, etc.)
 > - **Terminated**: Process completed
-> ![[../../_assets/full process states.png]]
+> ![[full process states.png]]
 
 ### Process table
 - A process control block (PCB) contains information about the process, i.e. registers, quantum, priority, etc. 
@@ -134,10 +134,10 @@ kill(pid, SIGTERM) //ends process with given pid
 	- **Multithreaded web server:** 
 		- Multiple threads allow for multiple requests to be satisfied simultaneously, without having to service requests sequentially or to fork off separate processes for every incoming request.
 		- Dispatcher reads incoming requests from the netzrok. After examining the request, it chooses an idle worker thread and hands it the request. The dispatcher then wakes up the sleeping worker, moving it from blocked status
-		- ![[../../_assets/thread application example 2.png]]
+		- ![[thread application example 2.png]]
 	- **Word processors** uses multiple threads: one thread to format the text, another thread to process inputs, etc. (a background thread may check spelling and grammar while a foreground thread processes user input ( keystrokes ), while yet a third thread loads images from the hard drive, and a fourth does periodic automatic backups of the file being edited.)
 		- One thread interacts with the user and the other handles reformatting in the background. As soon as the sentence is deleted from page 1, the interactive thread tells the reformatting thread to reformat the whole book. Meanwhile, the interactive thread continues to listen to the keyboard and mouse and responds to simple commands like scrolling page 1 while the other thread is computing madly in the background.
-		- ![[../../_assets/thread application example 1.png]]
+		- ![[thread application example 1.png]]
 > [!NOTE]- Process vs Thread
 > The primary difference is that threads within the same process run in a shared memory space, while processes run in separate memory spaces.  
 > Threads are not independent of one another like processes are, and as a result threads share with other threads their code section, data section, and OS resources (like open files and signals). But, like process, a thread has its own program counter (PC), register set, and stack space.
@@ -148,7 +148,7 @@ kill(pid, SIGTERM) //ends process with given pid
 - Per thread items: Systemaspekte, die jeder Thread selbst kontrolliert
 
 ### Thread memory
-![[../../_assets/thread memory.png | 400]]
+![[thread memory.png | 400]]
 - Jeder Thread besitzt einen eigenen Stack und Registers
 - Threads teilen sich einen gemeinsamen Speicher (code, data, files). Heap und Daten können von Threads gemeinsam genutzt werden (Shared memory)
 
@@ -297,22 +297,22 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - Thread switching does not need to call OS and to cause interrupt to Kernel
 - Kernel doesn't know about the user-lever thread and manages them as if they were single-threaded processes. There's a thread table in each process
 - Thread wird vom Nutzer verwaltet (Stack scheduling, usw.)
-![[../../_assets/user level thread.png | 300]]
+![[user level thread.png | 300]]
 ### Kernel level threads
 - Kernel knows and manages the threads
 - Instead of thread table in each process, the kernel has a master thread table that keeps track of all the threads in the system
 - In addition, kernel also maintains the traditional process table to keep track of the processes. Kernel provides system calls to create and manage threads
 - Threads wird com Kernel verwaltet => einfacher, aber weiniger performant als ULT
-![[../../_assets/Kernel level threads.png | 300]]
+![[Kernel level threads.png | 300]]
 ### Hybrid implementation
 - Vereinigung der Vorteile beider Methoden (ULT, KLT), unter Auslassung ihrer Nachteile
 - The kernel is aware of only the kernel-level threads and schedule those. Some of those threads may have multiple ULT on top of them
-![[../../_assets/Hybrid implementation ULT KLT.png | 300]]
+![[Hybrid implementation ULT KLT.png | 300]]
 ### Pop-up threads
 - Thread wird bei Ankunft einer Mitteilung erzeugt (a: vor Ankuft; b: nach Ankunft)
 - Vorteil: kein blocked Thread, der auf Mitteilung wartet
 - Nachteil: nicht günstig, falls zu viele Mitteilungen in kurzer Zeit - hier wäre eine Thread-Pool mit blocked Threads ressourcensschonender
-![[../../_assets/Popup threads.png | 300]]
+![[Popup threads.png | 300]]
 
 ## [[Interprocess communication]]
 ### Race conditions
@@ -333,14 +333,14 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 > 
 > B continues to run, saves the name of its file in slot 7 and updates in to be an 8
 > Process A runs again, writes its file name in slot 7, erasing B's file name. Then it sets in to 8. The spooler directory is now internally consistent, so the printer daemon will not notice anything wrong, but process B will never receive any output
-> ![[../../_assets/race conditions example.png | 300]]
+> ![[race conditions example.png | 300]]
 > 
 > Source: [6 IPC.pptx (live.com)](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fweb.karabuk.edu.tr%2Fyasinortakci%2Fdokumanlar%2Fisletim_sistemleri%2F6%2520IPC.pptx%23%3A~%3Atext%3DCritical%2520Regions%26text%3DThat%2520part%2520of%2520the%2520program%2Cfrom%2520doing%2520the%2520same%2520thing.&wdOrigin=BROWSELINK)
 
 
 ### Critical region
 - Teil eines Programm, der auf einen gemeinsamen Speicher mehrerer Prozesse zugreift
-- ![[../../_assets/critical region.png | 300]]
+- ![[critical region.png | 300]]
 ### Solution to race conditions
 4 conditions:
 1. Any two processes cannot be simultaneously inside their critical regions
@@ -353,11 +353,11 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 	
 	Busy-waiting, busy-looping or spinning is a technique in which a process repeatedly checks to see if a condition is true, such as whether keyboard input or a lock is available. Busy waiting means a process simply spins, (does nothing but continue to test its entry condition) while it is waiting to enter its critical section. This continues to use (waste)
 - **Example:**
-	- ![[../../_assets/Busy waiting example.png | 350]]
+	- ![[Busy waiting example.png | 350]]
 	- An int variable turn (initially 0) keeps track of whose turn it is to enter the critical region and examine or update the shared memory. 
 	- When process 1 leaves the critical region, it sets turn to 1, to allow process 2 to enter its critical region. Suppose that process 2 finishes its noncritical region, so both processes are in their noncritical regions (turn = 0)
 	- Suddenly, process 1 finishes its noncritical region before process 2 finishes its noncritical region and goes back to the top of its loop (has to wait until process 2 finishes noncritical region). It is not permitted to enter critical region (turn = 1, needs turn = 0) => violates condition 3
-	- ![[../../_assets/busy waiting problem.png]]
+	- ![[busy waiting problem.png]]
 #### Semaphore
 - **Dijkstrasche Lösung:** Einführung eines neuen Datentyps Semaphore und die Prozesse up und down
 	- Semaphore = 0, 1, 2,...: int value to count the number of wakeup processes saved for future use
@@ -376,15 +376,15 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - **Semaphore solution:** 3 Semaphoren: mutex, empty, full
 	- **mutex = 0, 1 (initially 1 true)** (binäre Semaphore) regelt den wechselseitigen Ausschluss (mutual exclusion) => Nur ein Prozess kann pro Zeit in den Puffer schreiben/aus dem Puffer lesen
 	- **empty (initially N), full (initially 0) = 0, 1, ... N** dienen der Synchronisation => Bestimmte Ereignisse treten ein bzw. treten nicht ein (hier: leerer/voller Puffer). Ensures that the producer stops running when the buffer is full, and the consumer when the buffer is empty
-	- ![[../../_assets/semaphore solution 1.png | 500]]
-	- ![[../../_assets/semaphore solution 2.png | 500]]
-	- ![[../../_assets/semaphore solution 3.png | 500]]
+	- ![[semaphore solution 1.png | 500]]
+	- ![[semaphore solution 2.png | 500]]
+	- ![[semaphore solution 3.png | 500]]
 - **Barriers**
 	- Intended for groups of processes rather than two-process producer-consumer situation
 	- Some applications are divided into phases and have the rule that no process may proceed into the next phase until all processes are ready to proceed (z.B Zwischenergebnisse müssen abgewartet werden)
 	- This is achieved by placing a barrier at the end of each phase
 	- **Example**:
-		- ![[../../_assets/barrier example.png | 500]]
+		- ![[barrier example.png | 500]]
 		- 4 Prozesse/Threads nähern sich der Barriere
 		- Alle Prozesse/Threads bis auf einen sind blockiert
 		- Nachdem der letzte Prozess die Barriere erreicht hat (bin-fertig-Signal), werden die PRozesse durchgelasse
@@ -395,19 +395,19 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - **Aufgabestellung:** Philosopher picks up 2 forks, eat, then put down the forks and think
 - Wrong solutions:
 	- 1. Solution: take_fork() waits until the specified fork is available and seizes it. However, when all philosophers take their left forks simultaneously, none will be able to take their right forks => deadlock
-		- ![[../../_assets/dining philosophers 1.png | 400]]
+		- ![[dining philosophers 1.png | 400]]
 	- 2. Solution: After taking left fork, the program checks to see if the right fork is available. If not, the philosopher puts down the left one, waits, and repeats the process. However, if all philosophers start the algorithm simultaneously, the process will go on forever => Starvation
 	- 3. Solution: Mutex semaphore => avoid starvation, but only 1 philosopher can eat at any instance
 - **Right solution: semaphore, N, LEFT, RIGHT, THINKING, HUNGRY, EATING** => keine Deadlocks, maximale Parallelisierung
 	- Speicherung auch der anderen Zustände: Einführung eines Feld state\[N], in dem für jeden Philosophen festgehalten wird, ob dieser gerade denkt, hungrig ist, oder isst (THINKING, HUNGRY, EATING)
 	- Einführung eines Semaphorenfeldes s\[N]: hungrige Philosophen können ggf. blockieren, falls eine der benögtigten Gabeln gerade in Benutzung ist
-	- ![[../../_assets/dining philosophers 2.png | 400]]
+	- ![[dining philosophers 2.png | 400]]
 ### The sleeping barber
 - **Aufgabestellung:** A barbershop consists of a waiting room with n chairs, and the barber room containing the barber chair. If there are no customers to be served, the barber goes to sleep. If a customer enters the barbershop and all chairs are occupied, then the customer leaves the shop. If the barber is busy, but chairs are available, then the customer sits in one of the free chairs. If the barber is asleep, the customer wakes up the barber
 - Our solution uses **three semaphores,** **customers (counts waiting customers), barbers (the number of barbers who are idle), and mutex (mutual exclusion)**. We also need a variable, **waiting**, which also counts the waiting customers. The reason for having waiting is that there is no way to read the current value of a semaphore. In this solution, a customer entering the shop has to count the number of waiting customers. If it is less than the number of chairs, he stays; otherwise, he leaves.
 - When the barber shows up for work in the morning, he executes the procedure barber, causing him to block on the semaphore customers because it is initially 0. The barber then goes to sleep. He stays asleep until the first customer shows up. When a customer arrives, he executes customer, starting by acquiring mutex to enter a critical region. If another customer enters shortly thereafter, the second one will no be able to do anything until the first one has released mutex.
 - The customer then checks to see if the number of waiting customers is less than the number of chairs. If not, he releases mutex and leaves without a haircut. If there is an available chair, the customer increments the integer variable, waiting. Then he does an up on the semaphore customers, thus waking up the barber. At this point, the customer and the barber are both awake. When the customer releases mutex, the barber grabs it, does some housekeeping, and begins the haircut
-- ![[../../_assets/the sleeping barber.png | 400]]
+- ![[the sleeping barber.png | 400]]
 
 ## [[Scheduling]]
 ### Resources
@@ -416,16 +416,16 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 ### Definition
 - The part of the OS which makes the choice which process will run next is called the scheduler, its algorithm the scheduling algorithm
 ### Process behavior
-![[../../_assets/process behavior.png | 400]]
+![[process behavior.png | 400]]
 - Fig. a: processes spend most of their time computing => compute-bound processes
 - Fig. b: processes spend most of their time waiting for I/O => I/O-bound processes
 ### Scheduling for batch systems: Shortest job first scheduling
-![[../../_assets/shortest job first.png | 400]]
+![[shortest job first.png | 400]]
 - Scheduler picks the job with the shortest run-time first
 - a: t_mean = (8 + 12 + 16 + 20) / 4 = 14
 - b: t_mean = (4 + 8 + 12 + 20) /4 = 11
 ### Three level scheduling
-![[../../_assets/three level scheduling.png | 400]]
+![[three level scheduling.png | 400]]
 - Admission scheduler: processes are first stored into an admission queue. Processes are then admitted in the system
 - Memory scheduler: Swap in / swap out. To be avoided: Disk storage is expensive in terms of time
 - CPU scheduler: chooses a job from memory by using a scheduling algorithm and processes it
@@ -439,13 +439,13 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 ### Scheduling for interactive systems
 #### Round robin scheduling
 - Each process is assigned a time interval, called its quantum. If the process is still running at the end of the quantum, the CPU is switched and given to another process. If the process has blocked or finished before the quantum has elasped, the CPU is also switched
-![[../../_assets/round robin scheduling.png | 500]]
+![[round robin scheduling.png | 500]]
 - a: Ranfolge der laufbereiten Prozesse
 - b: Rangfolge der laufbereiten Prozesse, nachdem Prozess B sein Quantum aufgebraucht hat
 #### Priority scheduling
 - Priorities can be assigned to processes statically (assigned priority does not change anymore) or dynamically. It is often convenient to **group processes into priority classes and use round robin on each class**
 - Scheduler may decrease the priority of the currently running process at each clock tick (to prevent high priority processes from running forever). If new priority drops below the next highest process, CPU switches
-![[../../_assets/priority scheduling.png | 500]]
+![[priority scheduling.png | 500]]
 #### Lottery scheduling
 - Give processes lottery tickets for CPU time => Process with the randomized lottery ticket gets the CPU.
 - More important processes can be given extra tickets to increase their odds of winning
@@ -461,12 +461,12 @@ Memmory: [[Process and threads#example (bsp_multithreading.c)]]
 - The process scheduler schedules only the kernel threads
 - User threads are mapped to kernel threads by the thread library. The OS and the scheduler is unaware of them
 - Scheduling of ULTs:
-![[../../_assets/thread scheduling.png | 400]]
+![[thread scheduling.png | 400]]
 - Scheduling of KLTs:
-![[../../_assets/thread scheduling 1.png | 400]]
+![[thread scheduling 1.png | 400]]
 #### Hyperthreading
-![[../../_assets/hyperthreading (ohne).png | 400]]
-![[../../_assets/hyperthreading (mit).png | 400]]
+![[hyperthreading (ohne).png | 400]]
+![[hyperthreading (mit).png | 400]]
 - Das OS emuliert weitere CPUs
 - Dadurch werden Prozessor-Einheiten effektiver genutzt. z.B können float und int-Rechnungen parallel durchgeführt werden
 - Hyperthreading nicht so leistungsfähig wie ein klassisches Multi-Prozessorsystem: die Threads in den logischen Prozessoren müssen sich dieselben physikalischen Prozessor-Einheiten teilen, wobei es zu Konflikten kommen kann.

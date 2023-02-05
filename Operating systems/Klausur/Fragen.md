@@ -6,9 +6,9 @@
 4. **What is a process?**
 5. How is process memory divided?
 6. What is the content of Stack, Heap, Daten before prog_a() finishes running? 
-		![[../../_assets/process memory example 1.png | 250]]
+		![[process memory example 1.png | 250]]
 7. What is the content of Stack, Heap, Daten when prog_a() finishes running? 
-		![[../../_assets/process memory example 4.png | 250]]
+		![[process memory example 4.png | 250]]
 8. Process creation procedure?
 9. What are the types of process termination?
 10. Describe the process states?

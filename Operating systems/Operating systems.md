@@ -2,7 +2,7 @@
 [[C Programming]]
 [[Java threads]]
 [Klausurfragen](Klausurfragen.md)
-[Wiederholung](Wiederholung.md)
+[Wiederholung](IKG/Operating%20systems/Klausur/Wiederholung.md)
 [Fragen](Fragen.md) - [Antworten](Antworten.md)
 
 1. Introduction
